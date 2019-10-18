@@ -1,10 +1,10 @@
-const app = require("./app");
+import app from "./app";
 
 app.listen(3333);
 
 /* 
-  Separated the parts of the app and creating the server in two files. 
+  Creating the server in two files. 
 
   -> app.js -> Initialize the express server, the middlewares and the routes. 
-  -> server.js -> Export the app and listen to a specific port.
+  -> server.js -> Import the app and listen to a specific port.
 */
