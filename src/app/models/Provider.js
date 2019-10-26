@@ -1,5 +1,5 @@
 import Sequelize, { Model } from 'sequelize';
-
+import bcrypt from 'bcryptjs';
 import Restaurant from './Restaurant';
 
 class Provider extends Model {
@@ -8,12 +8,19 @@ class Provider extends Model {
       {
         name: Sequelize.STRING,
         email: Sequelize.STRING,
+        password: Sequelize.VIRTUAL,
         password_hash: Sequelize.STRING,
       },
       {
         sequelize,
       }
     );
+
+    this.addHook('beforeSave', async provider => {
+      if (provider.password) {
+        provider.password_hash = await bcrypt.hash(provider.password, 8);
+      }
+    });
   }
 
   static associate() {

@@ -10,8 +10,8 @@ class UserController {
     }
 
     // Creating the user
-    const { name, email, password_hash } = await User.create(req.body);
-    return res.json({ name, email, password_hash });
+    const { name, email } = await User.create(req.body);
+    return res.json({ name, email });
   }
 }
 
