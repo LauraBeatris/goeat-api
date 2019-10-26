@@ -16,7 +16,7 @@ class Provider extends Model {
     );
   }
 
-  static associate(models) {
+  static associate() {
     this.myAssociation = this.hasMany(Restaurant);
   }
 }

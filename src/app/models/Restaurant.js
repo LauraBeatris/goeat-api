@@ -17,7 +17,7 @@ class Restaurant extends Model {
     );
   }
 
-  static associate(models) {
+  static associate() {
     this.myAssociation = this.hasOne(Provider);
   }
 }
