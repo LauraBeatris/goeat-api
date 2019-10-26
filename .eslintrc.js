@@ -14,6 +14,7 @@ module.exports = {
     sourceType: "module"
   },
   rules: {
+    'import/no-cycle': 'error',
     "prettier/prettier": "error",
     "class-methods-use-this": "off",
     "no-param-reassign": "off",

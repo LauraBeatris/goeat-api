@@ -1,9 +1,12 @@
 import Sequelize from 'sequelize';
 
 import databaseConfig from '../config/database';
-import User from '../app/models/User';
 
-const models = [User];
+import User from '../app/models/User';
+import Restaurant from '../app/models/Restaurant';
+import Provider from '../app/models/Provider';
+
+const models = [User, Restaurant, Provider];
 
 class Database {
   constructor() {
@@ -14,6 +17,12 @@ class Database {
     this.connection = new Sequelize(databaseConfig);
 
     models.map(model => model.init(this.connection));
+
+    const associatedModels = models.filter(
+      model => typeof model.associate === 'function'
+    );
+
+    associatedModels.map(model => model.associate(models));
   }
 }
 
