@@ -11,6 +11,7 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mysql2": "^1.5.2",
     "prettier": "^1.18.2",
     "sequelize": "^5.21.1"
