@@ -1,7 +1,12 @@
 import express from 'express';
+import dotenv from 'dotenv';
 import routes from './routes';
 
 import './database';
+
+dotenv.config({
+  path: process.env.NODE_ENV === 'test' ? '.env.testing' : '.env',
+});
 
 class App {
   constructor() {
