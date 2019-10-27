@@ -27,7 +27,7 @@ class UserController {
     */
     if (passedEmail !== user.email) {
       const userExists = await User.findOne({
-        where: { passedEmail },
+        where: { email: passedEmail },
       });
 
       if (userExists) {
@@ -42,7 +42,7 @@ class UserController {
       return res.status(401).json({ error: "Password doesn't match" });
     }
 
-    const { id, name, email } = user.update(req.body);
+    const { id, name, email } = await user.update(req.body);
 
     return res.json({ id, name, email });
   }

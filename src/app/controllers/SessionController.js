@@ -11,7 +11,7 @@ class SessionController {
     // Verifying if the user exists
     if (!user) {
       // Then, not allowed - 401
-      return res.json(401).json({ error: 'User not found' });
+      return res.status(401).json({ error: 'User not found' });
     }
 
     // Password verification
