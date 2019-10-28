@@ -28,5 +28,6 @@ routes.put('/users', UserController.update);
 
 routes.get('/providers', ProviderController.index);
 routes.get('/restaurants', RestaurantController.index);
+routes.get('/restaurants/:provider_id', RestaurantController.index);
 
 export default routes;

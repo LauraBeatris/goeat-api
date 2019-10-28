@@ -1,6 +1,5 @@
 import Sequelize, { Model } from 'sequelize';
 import bcrypt from 'bcryptjs';
-import Restaurant from './Restaurant';
 
 class Provider extends Model {
   static init(sequelize) {
