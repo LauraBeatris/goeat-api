@@ -5,8 +5,9 @@ import databaseConfig from '../config/database';
 import User from '../app/models/User';
 import Restaurant from '../app/models/Restaurant';
 import Provider from '../app/models/Provider';
+import File from '../app/models/File';
 
-const models = [User, Restaurant, Provider];
+const models = [User, Restaurant, Provider, File];
 
 class Database {
   constructor() {
@@ -22,7 +23,7 @@ class Database {
       model => typeof model.associate === 'function'
     );
 
-    associatedModels.map(model => model.associate(models));
+    associatedModels.map(model => model.associate(this.connection.models));
   }
 }
 

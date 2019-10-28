@@ -23,8 +23,9 @@ class Provider extends Model {
     });
   }
 
-  static associate() {
-    this.myAssociation = this.hasMany(Restaurant);
+  static associate(models) {
+    this.hasMany(models.Restaurant, { foreignKey: 'avatar_id' });
+    this.belongsTo(models.File, { foreignKey: 'file_id' });
   }
 }
 

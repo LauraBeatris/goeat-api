@@ -1,7 +1,5 @@
 import Sequelize, { Model } from 'sequelize';
 
-import Provider from './Provider';
-
 class Restaurant extends Model {
   static init(sequelize) {
     super.init(
@@ -17,8 +15,8 @@ class Restaurant extends Model {
     );
   }
 
-  static associate() {
-    this.myAssociation = this.hasOne(Provider);
+  static associate(models) {
+    this.belongsTo(models.File, { foreignKey: 'file_id' });
   }
 }
 
