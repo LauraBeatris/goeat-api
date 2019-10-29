@@ -7,6 +7,10 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
+      date: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
       user_id: {
         type: Sequelize.INTEGER,
         references: {
