@@ -24,7 +24,7 @@ class Provider extends Model {
 
   static associate(models) {
     this.hasMany(models.Restaurant, { foreignKey: 'provider_id' });
-    this.belongsTo(models.File, { foreignKey: 'file_id' });
+    this.belongsTo(models.File, { foreignKey: 'file_id', as: 'avatar' });
   }
 }
 
