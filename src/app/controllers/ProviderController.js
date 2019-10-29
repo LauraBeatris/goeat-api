@@ -8,7 +8,7 @@ class ProviderController {
     const providers = await Provider.findAll({
       where: {},
       attributes: ['id', 'name', 'email'],
-      include: [{ model: File, as: 'avatar' }],
+      include: [{ model: File, as: 'avatar', attributes: ['name', 'path'] }],
     });
 
     const provider = await Provider.findByPk(4);

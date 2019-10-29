@@ -1,5 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import { resolve } from 'path';
 import routes from './routes';
 
 import './database';
@@ -20,6 +21,11 @@ class App {
   middlewares() {
     // Ready to receive request in json format
     this.server.use(express.json());
+    // Ready to access static files
+    this.server.use(
+      '/files',
+      express.static(resolve(__dirname, '..', 'tmp', 'uploads'))
+    );
   }
 
   routes() {

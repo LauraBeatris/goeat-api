@@ -9,13 +9,13 @@ class RestaurantController {
       street_address: Joi.string().required(),
       number_address: Joi.number().required(),
       // city_address: Joi.string().required(),
+      file_id: Joi.number(),
     });
 
     Joi.validate(req.body, schema, err => {
       if (err) {
         return res.status(422).json({ err });
       }
-      return null;
     });
 
     const { name } = req.body;
@@ -32,8 +32,16 @@ class RestaurantController {
       street_address,
       number_address,
       city_address,
+      file_id,
     } = await Restaurant.create(req.body);
-    return res.json({ id, name, street_address, number_address, city_address });
+    return res.json({
+      id,
+      name,
+      street_address,
+      number_address,
+      city_address,
+      file_id,
+    });
   }
 
   async index(req, res) {
@@ -52,7 +60,9 @@ class RestaurantController {
           'number_address',
           'description',
         ],
-        include: [{ model: File }],
+        include: [
+          { model: File, as: 'avatar', attributes: ['path', 'name', 'url'] },
+        ],
       });
     } else {
       // Returning the restaurants owned by the provider
@@ -65,7 +75,7 @@ class RestaurantController {
           'number_address',
           'description',
         ],
-        include: [{ model: File, as: 'avatar' }],
+        include: [{ model: File, as: 'avatar', attributes: ['name', 'path'] }],
       });
     }
 

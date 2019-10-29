@@ -22,9 +22,7 @@ routes.post('/sessions', SessionController.store);
 routes.use(AuthMiddleware);
 
 // File -> name of the field in the multipart form data
-routes.post('/files/users', upload.single('file'), FileController.store);
-routes.post('/files/providers', upload.single('file'), FileController.store);
-routes.post('/files/restaurants', upload.single('file'), FileController.store);
+routes.post('/files/', upload.single('file'), FileController.store);
 
 routes.put('/users', UserController.update);
 
