@@ -19,7 +19,13 @@ class SessionController {
 
     const { email, password } = req.body;
 
-    const user = await User.findOne({ where: { email } });
+    const isProvider = req.query.type !== 'user';
+    let user;
+    if (isProvider) {
+      user = await Provider.findOne({ where: { email } });
+    } else {
+      user = await User.findOne({ where: { email } });
+    }
 
     // Verifying if the user exists
     if (!user) {
