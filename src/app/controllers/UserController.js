@@ -1,8 +1,10 @@
 import * as Yup from 'yup';
 import User from '../models/User';
 
+// TO DO - Use Joi for validation
 class UserController {
   async store(req, res) {
+    // Input data validation
     const schema = Yup.object().shape({
       name: Yup.string().required(),
       email: Yup.string()
@@ -65,7 +67,7 @@ class UserController {
 
       if (userExists) {
         return res
-          .status(404)
+          .status(401)
           .json({ error: 'Already exists a user using this email' });
       }
     }

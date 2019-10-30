@@ -1,5 +1,6 @@
 import Joi from 'joi';
 import Restaurant from '../models/Restaurant';
+import Provider from '../models/Provider';
 import File from '../models/File';
 
 class RestaurantController {
@@ -14,7 +15,7 @@ class RestaurantController {
 
     Joi.validate(req.body, schema, err => {
       if (err) {
-        return res.status(422).json({ err });
+        return res.status(422).json({ err: err.details });
       }
     });
 
@@ -27,21 +28,22 @@ class RestaurantController {
         .json({ err: 'A restaurant with that name already exists' });
     }
 
-    const {
-      id,
-      street_address,
-      number_address,
-      city_address,
-      file_id,
-    } = await Restaurant.create(req.body);
-    return res.json({
-      id,
-      name,
-      street_address,
-      number_address,
-      city_address,
-      file_id,
-    });
+    // Finding the provider / Future owner
+    const provider = await Provider.findByPk(req.userId);
+
+    let restaurantData;
+    if (provider) {
+      // Creating the restaurant
+      const restaurant = await Restaurant.create(req.body);
+      restaurantData = restaurant;
+
+      // Creating the owner relationship with the restaurant
+      provider.addRestaurant(restaurant.id);
+    } else {
+      return res.status(404).json({ err: 'The provider was not found' });
+    }
+
+    return res.json(restaurantData);
   }
 
   async index(req, res) {

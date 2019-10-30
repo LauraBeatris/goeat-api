@@ -26,6 +26,10 @@ class Provider extends Model {
     this.hasMany(models.Restaurant, { foreignKey: 'provider_id' });
     this.belongsTo(models.File, { foreignKey: 'file_id', as: 'avatar' });
   }
+
+  checkPassword(password) {
+    return bcrypt.compare(password, this.password_hash);
+  }
 }
 
 export default Provider;
