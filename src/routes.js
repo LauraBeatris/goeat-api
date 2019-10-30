@@ -4,10 +4,11 @@ import multer from 'multer';
 import multerConfig from './config/multer';
 
 import UserController from './app/controllers/UserController';
+import ProviderController from './app/controllers/ProviderController';
 import SessionController from './app/controllers/SessionController';
 import FileController from './app/controllers/FileController';
-import ProviderController from './app/controllers/ProviderController';
 import RestaurantController from './app/controllers/RestaurantController';
+import AppointmentController from './app/controllers/AppointmentController';
 
 import AuthMiddleware from './app/middlewares/auth';
 
@@ -32,5 +33,7 @@ routes.get('/providers', ProviderController.index);
 routes.post('/restaurants', RestaurantController.store);
 routes.get('/restaurants', RestaurantController.index);
 routes.get('/restaurants/:provider_id', RestaurantController.index);
+
+routes.post('/appointments', AppointmentController.store);
 
 export default routes;

@@ -15,11 +15,11 @@ class ProviderController {
         .required(),
     });
 
-    Joi.validate(
-      req.body,
-      schema,
-      err => err && res.status(422).json({ err: err.details })
-    );
+    await Joi.validate(req.body, schema, err => {
+      if (err) {
+        return res.status(422).json({ err: err.details });
+      }
+    });
 
     const { email } = req.body;
 
