@@ -23,10 +23,6 @@ class AppointmentController {
       Date verifications
     */
 
-    // Parsing ISO format to Date and getting the hour and day informations
-    const hour = getHours(parseISO(date));
-    const day = getDate(parseISO(date));
-
     // Verifying if it isn't a past date
     if (isBefore(parseISO(date), new Date())) {
       return res
