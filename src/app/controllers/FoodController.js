@@ -3,6 +3,21 @@ import Restaurant from '../models/Restaurant';
 import Food from '../models/Food';
 
 class FoodController {
+  // Listing all the foods of the restaurant
+  async index(req, res) {
+    const { restaurant_id } = req.params;
+
+    if (!restaurant_id) {
+      return res.status(404).json({
+        err:
+          "It's not possible to create a food without pass the restaurant id",
+      });
+    }
+
+    const foods = await Food.findAll({ where: { restaurant_id } });
+    return res.json({ foods });
+  }
+
   async store(req, res) {
     const schema = Joi.object().keys({
       name: Joi.string().required(),
@@ -42,21 +57,6 @@ class FoodController {
     await restaurant.addFood(id);
 
     return res.json({ id, name, price });
-  }
-
-  // Listing all the foods of the restaurant
-  async index(req, res) {
-    const { restaurant_id } = req.params;
-
-    if (!restaurant_id) {
-      return res.status(404).json({
-        err:
-          "It's not possible to create a food without pass the restaurant id",
-      });
-    }
-
-    const foods = await Food.findAll({ where: { restaurant_id } });
-    return res.json({ foods });
   }
 }
 
