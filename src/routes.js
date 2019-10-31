@@ -9,6 +9,7 @@ import SessionController from './app/controllers/SessionController';
 import FileController from './app/controllers/FileController';
 import RestaurantController from './app/controllers/RestaurantController';
 import AppointmentController from './app/controllers/AppointmentController';
+import FoodController from './app/controllers/FoodController';
 
 import AuthMiddleware from './app/middlewares/auth';
 
@@ -33,6 +34,9 @@ routes.get('/providers', ProviderController.index);
 routes.post('/restaurants', RestaurantController.store);
 routes.get('/restaurants', RestaurantController.index);
 routes.get('/restaurants/:provider_id', RestaurantController.index);
+
+routes.post('/foods/:restaurant_id', FoodController.store);
+routes.get('/foods/:restaurant_id', FoodController.index);
 
 routes.post('/appointments', AppointmentController.store);
 

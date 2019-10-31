@@ -17,6 +17,7 @@ class Restaurant extends Model {
 
   static associate(models) {
     this.belongsTo(models.File, { foreignKey: 'file_id', as: 'avatar' });
+    this.hasMany(models.Foods, { foreignKey: 'restaurant_id', as: 'food' });
   }
 }
 
