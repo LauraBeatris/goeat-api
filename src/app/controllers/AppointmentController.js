@@ -1,5 +1,6 @@
 import Joi from 'joi';
-import { parseISO, isBefore } from 'date-fns';
+import { parseISO, isBefore, endOfDay, startOfDay } from 'date-fns';
+import { Op } from 'sequelize';
 
 import Appointment from '../models/Appointment';
 import Restaurant from '../models/Restaurant';
@@ -9,58 +10,7 @@ import File from '../models/File';
 class AppointmentController {
   async index(req, res) {
     const isProvider = req.query.provider === 'true';
-    const { page = 1 } = req.query;
-
-    // Listing all the appointments related to the owned restaurants of the provider
-    if (isProvider) {
-      const { restaurant_id } = req.query;
-
-      if (!restaurant_id) {
-        return res.status(404).json({
-          err: "It's not possible to find a restaurant without pass the id",
-        });
-      }
-
-      // Finding the restaurant
-      const restaurant = await Restaurant.findByPk(restaurant_id);
-
-      if (!restaurant) {
-        return res.status(404).json({
-          err: 'Restaurant not found',
-        });
-      }
-
-      // Finding the appointments of the restaurant which wasn't cancelled
-      const appointments = await Appointment.findAll({
-        where: { restaurant_id, canceled_at: null },
-        order: ['date'],
-        attributes: ['id', 'date'],
-        limit: 20,
-        offset: (page - 1) * 20,
-        include: [
-          {
-            model: Restaurant,
-            as: 'restaurant',
-            attributes: ['id', 'name', 'street_address', 'number_address'],
-          },
-          {
-            model: User,
-            as: 'user',
-            attributes: ['id', 'name', 'email'],
-
-            include: [
-              {
-                model: File,
-                as: 'avatar',
-                attributes: ['id', 'url', 'path'],
-              },
-            ],
-          },
-        ],
-      });
-
-      return res.json({ appointments });
-    }
+    const { page = 1, date } = req.query;
 
     // Finding the user
     const user = await User.findByPk(req.userId);
@@ -71,9 +21,17 @@ class AppointmentController {
       });
     }
 
+    // Date Query Operations - Filtering by day
+    const parsedDate = parseISO(date);
+    const queryDate = {};
+    if (date)
+      queryDate.date = {
+        [Op.between]: [startOfDay(parsedDate), endOfDay(parsedDate)],
+      };
+
     // Finding the appointments of the user which wasn't cancelled
     const appointments = await Appointment.findAll({
-      where: { user_id: req.userId, canceled_at: null },
+      where: { user_id: req.userId, canceled_at: null, ...queryDate },
       order: ['date'],
       attributes: ['id', 'date'],
       limit: 20,
@@ -99,7 +57,7 @@ class AppointmentController {
       ],
     });
 
-    return res.json(appointments);
+    return res.json({ appointments });
   }
 
   async store(req, res) {

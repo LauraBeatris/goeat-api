@@ -9,6 +9,7 @@ import SessionController from './app/controllers/SessionController';
 import FileController from './app/controllers/FileController';
 import RestaurantController from './app/controllers/RestaurantController';
 import AppointmentController from './app/controllers/AppointmentController';
+import ScheduleController from './app/controllers/ScheduleController';
 import FoodController from './app/controllers/FoodController';
 
 import AuthMiddleware from './app/middlewares/auth';
@@ -40,5 +41,7 @@ routes.get('/foods/:restaurant_id', FoodController.index);
 
 routes.post('/appointments', AppointmentController.store);
 routes.get('/appointments', AppointmentController.index);
+
+routes.get('/schedules', ScheduleController.index);
 
 export default routes;
