@@ -10,7 +10,7 @@ class FoodController {
     if (!restaurant_id) {
       return res.status(404).json({
         err:
-          "It's not possible to create a food without pass the restaurant id",
+          "It's not possible to listing the foods without pass the restaurant id",
       });
     }
 

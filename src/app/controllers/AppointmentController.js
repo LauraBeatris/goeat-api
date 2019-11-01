@@ -9,6 +9,7 @@ import File from '../models/File';
 class AppointmentController {
   async index(req, res) {
     const isProvider = req.query.provider === 'true';
+    const { page = 1 } = req.query;
 
     // Listing all the appointments related to the owned restaurants of the provider
     if (isProvider) {
@@ -34,6 +35,8 @@ class AppointmentController {
         where: { restaurant_id, canceled_at: null },
         order: ['date'],
         attributes: ['id', 'date'],
+        limit: 20,
+        offset: (page - 1) * 20,
         include: [
           {
             model: Restaurant,
@@ -73,6 +76,8 @@ class AppointmentController {
       where: { user_id: req.userId, canceled_at: null },
       order: ['date'],
       attributes: ['id', 'date'],
+      limit: 20,
+      offset: (page - 1) * 20,
       include: [
         {
           model: Restaurant,
