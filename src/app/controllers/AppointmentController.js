@@ -1,11 +1,12 @@
 import Joi from 'joi';
-import { parseISO, isBefore, endOfDay, startOfDay } from 'date-fns';
+import { parseISO, isBefore, endOfDay, startOfDay, format } from 'date-fns';
 import { Op } from 'sequelize';
 
 import Appointment from '../models/Appointment';
 import Restaurant from '../models/Restaurant';
 import User from '../models/User';
 import File from '../models/File';
+import Notification from '../schemas/Notification';
 
 class AppointmentController {
   async store(req, res) {
@@ -31,6 +32,8 @@ class AppointmentController {
       return res.status(404).json({ error: 'Restaurant not found' });
     }
 
+    const { provider_id } = restaurant;
+
     /*
       Date verifications
     */
@@ -49,10 +52,24 @@ class AppointmentController {
       return res.status(400).json({ err: 'This date already was booked' });
     }
 
+    /*
+      Creating the appointments and his notification
+    */
+
+    // Getting name of the user
+    const { name } = await User.findByPk(req.userId);
+    const formattedDate = format(
+      parseISO(date),
+      "'day' dd 'of' MMMM',' H:mm 'hours'"
+    );
     const appointment = await Appointment.create({
       date,
       user_id: req.userId,
       restaurant_id,
+    });
+    await Notification.create({
+      content: `New appointment by ${name} for ${formattedDate}`,
+      user: provider_id,
     });
 
     return res.json(appointment);
