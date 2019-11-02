@@ -1,6 +1,11 @@
 import Joi from 'joi';
-import { getHours, getDate, parseISO, isBefore } from 'date-fns';
+import { parseISO, isBefore, endOfDay, startOfDay } from 'date-fns';
+import { Op } from 'sequelize';
+
 import Appointment from '../models/Appointment';
+import Restaurant from '../models/Restaurant';
+import User from '../models/User';
+import File from '../models/File';
 
 class AppointmentController {
   async store(req, res) {
@@ -18,6 +23,13 @@ class AppointmentController {
     });
 
     const { date, restaurant_id } = req.body;
+
+    // Finding restaurant
+    const restaurant = await Restaurant.findByPk(restaurant_id);
+
+    if (!restaurant) {
+      return res.status(404).json({ error: 'Restaurant not found' });
+    }
 
     /*
       Date verifications
@@ -44,6 +56,57 @@ class AppointmentController {
     });
 
     return res.json(appointment);
+  }
+
+  async index(req, res) {
+    const { page = 1, date } = req.query;
+
+    // Finding the user
+    const user = await User.findByPk(req.userId);
+
+    if (!user) {
+      return res.status(404).json({
+        err: 'User not found',
+      });
+    }
+
+    // Date Query Operations - Filtering by day
+    const parsedDate = parseISO(date);
+    const queryDate = {};
+    if (date)
+      queryDate.date = {
+        [Op.between]: [startOfDay(parsedDate), endOfDay(parsedDate)],
+      };
+
+    // Finding the appointments of the user which wasn't cancelled
+    const appointments = await Appointment.findAll({
+      where: { user_id: req.userId, canceled_at: null, ...queryDate },
+      order: ['date'],
+      attributes: ['id', 'date'],
+      limit: 20,
+      offset: (page - 1) * 20,
+      include: [
+        {
+          model: Restaurant,
+          as: 'restaurant',
+          attributes: ['id', 'name', 'street_address', 'number_address'],
+        },
+        {
+          model: User,
+          as: 'user',
+          attributes: ['id', 'name', 'email'],
+          include: [
+            {
+              model: File,
+              as: 'avatar',
+              attributes: ['id', 'path', 'url'],
+            },
+          ],
+        },
+      ],
+    });
+
+    return res.json({ appointments });
   }
 }
 

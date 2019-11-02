@@ -6,8 +6,6 @@ import Provider from '../models/Provider';
 
 class SessionController {
   async store(req, res) {
-    console.log(req.query);
-
     const schema = Yup.object().shape({
       email: Yup.string().required(),
       password: Yup.string().required(),
@@ -30,7 +28,9 @@ class SessionController {
     // Verifying if the user exists
     if (!user) {
       // Then, not allowed - 401
-      return res.status(401).json({ error: 'User not found' });
+      return res
+        .status(401)
+        .json({ error: `${isProvider ? 'Provider' : 'User'} not found` });
     }
 
     // Password verification
