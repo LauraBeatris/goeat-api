@@ -57,7 +57,8 @@ class AppointmentController {
     */
 
     // Getting name of the user
-    const { name } = await User.findByPk(req.userId);
+    const { name: userName } = await User.findByPk(req.userId);
+    const { name: restaurantName } = restaurant;
     const formattedDate = format(
       parseISO(date),
       "'day' dd 'of' MMMM',' H:mm 'hours'"
@@ -68,7 +69,7 @@ class AppointmentController {
       restaurant_id,
     });
     await Notification.create({
-      content: `New appointment by ${name} for ${formattedDate}`,
+      content: `New appointment - ${restaurantName} - by ${userName} for ${formattedDate}`,
       user: provider_id,
     });
 

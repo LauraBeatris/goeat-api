@@ -13,10 +13,12 @@ class NotificationController {
       });
     }
 
+    // Ordering by createdAt field - Descending
+    // The last notification will appear first
     const notifications = await Notification.find({
       user: req.userId,
     })
-      .sort('createdAt')
+      .sort({ createdAt: 'desc' })
       .skip((page - 1) * 20)
       .limit(20);
 
