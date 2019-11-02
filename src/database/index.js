@@ -1,5 +1,6 @@
 import Sequelize from 'sequelize';
 import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 import databaseConfig from '../config/database';
 
 import User from '../app/models/User';
@@ -8,6 +9,10 @@ import Provider from '../app/models/Provider';
 import File from '../app/models/File';
 import Appointment from '../app/models/Appointment';
 import Foods from '../app/models/Food';
+
+dotenv.config({
+  path: process.env.NODE_ENV === 'test' ? '.env.testing' : '.env',
+});
 
 const models = [User, Restaurant, Provider, File, Appointment, Foods];
 
@@ -32,10 +37,11 @@ class Database {
 
   // Connecting to the NoSQL database (Mongo)
   mongo() {
-    this.mongoConnection = mongoose.connect(
-      'mongodb://laura:123@localhost:27017/goeat',
-      { useNewUrlParser: true, useFindAndModify: true }
-    );
+    this.mongoConnection = mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useFindAndModify: true,
+      useUnifiedTopology: true,
+    });
   }
 }
 
