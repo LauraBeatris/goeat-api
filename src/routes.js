@@ -42,6 +42,6 @@ routes.get('/foods/:restaurant_id', FoodController.index);
 routes.post('/appointments', AppointmentController.store);
 routes.get('/appointments', AppointmentController.index);
 
-routes.get('/schedules', ScheduleController.index);
+routes.get('/schedules/:restaurant_id', ScheduleController.index);
 
 export default routes;

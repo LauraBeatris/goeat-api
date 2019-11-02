@@ -11,7 +11,7 @@ class ScheduleController {
     const { page = 1, date } = req.query;
 
     // Listing all the appointments related to the owned restaurants of the provider
-    const { restaurant_id } = req.query;
+    const { restaurant_id } = req.params;
 
     if (!restaurant_id) {
       return res.status(404).json({
