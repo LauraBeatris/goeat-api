@@ -24,6 +24,25 @@ class NotificationController {
 
     return res.json(notifications);
   }
+
+  async update(req, res) {
+    const { notification_id } = req.params;
+
+    if (!notification_id) {
+      return res.status(404).json({
+        error:
+          "It's not possible to find the notification without passing an id",
+      });
+    }
+
+    const notification = await Notification.findByIdAndUpdate(
+      notification_id,
+      { read: true },
+      { new: true }
+    );
+
+    return res.json(notification);
+  }
 }
 
 export default new NotificationController();

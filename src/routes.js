@@ -42,9 +42,11 @@ routes.get('/foods/:restaurant_id', FoodController.index);
 
 routes.post('/appointments', AppointmentController.store);
 routes.get('/appointments', AppointmentController.index);
-
-routes.get('/notifications', NotificationsController.index);
+routes.delete('/appointments/:appointment_id', AppointmentController.delete);
 
 routes.get('/schedules/:restaurant_id', ScheduleController.index);
+
+routes.get('/notifications', NotificationsController.index);
+routes.put('/notifications/:notification_id', NotificationsController.update);
 
 export default routes;

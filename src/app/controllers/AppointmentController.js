@@ -1,5 +1,12 @@
 import Joi from 'joi';
-import { parseISO, isBefore, endOfDay, startOfDay, format } from 'date-fns';
+import {
+  parseISO,
+  isBefore,
+  endOfDay,
+  startOfDay,
+  format,
+  subHours,
+} from 'date-fns';
 import { Op } from 'sequelize';
 
 import Appointment from '../models/Appointment';
@@ -88,7 +95,7 @@ class AppointmentController {
       });
     }
 
-    // Date Query Operations - Filtering by day
+    // Date Validation Operations - Filtering by day
     const parsedDate = parseISO(date);
     const queryDate = {};
     if (date)
@@ -107,7 +114,14 @@ class AppointmentController {
         {
           model: Restaurant,
           as: 'restaurant',
-          attributes: ['id', 'name', 'street_address', 'number_address'],
+          attributes: [
+            'id',
+            'name',
+            'street_address',
+            'number_address',
+            'city_address',
+            'state_address',
+          ],
         },
         {
           model: User,
@@ -125,6 +139,44 @@ class AppointmentController {
     });
 
     return res.json({ appointments });
+  }
+
+  async delete(req, res) {
+    const { appointment_id } = req.params;
+
+    if (!appointment_id) {
+      return res.status(404).json({
+        error: "It's not possible to cancel an appointment with passing an id",
+      });
+    }
+
+    const appointment = await Appointment.findByPk(appointment_id);
+
+    if (!appointment) {
+      return res.status(404).json({ error: 'Appointment not found' });
+    }
+
+    // The user can cancel only his/her appointments - Verifying if the id is different
+    if (appointment.user_id !== req.userId) {
+      return res.status(401).json({
+        error: "You don't have permission to cancel this appointment",
+      });
+    }
+
+    // It's just allowed to cancel appointments with 1 hour of advance
+    const dateWithSub = subHours(appointment.date, 1);
+
+    if (isBefore(dateWithSub, new Date())) {
+      return res.status(401).json({
+        error: 'You can only cancel appointments with 1 hour of advance',
+      });
+    }
+
+    // Changing the field canceled_at with the current date
+    appointment.canceled_at = new Date();
+    await appointment.save();
+
+    return res.json(appointment);
   }
 }
 
