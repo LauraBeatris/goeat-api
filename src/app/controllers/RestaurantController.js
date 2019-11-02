@@ -4,6 +4,44 @@ import Provider from '../models/Provider';
 import File from '../models/File';
 
 class RestaurantController {
+  async index(req, res) {
+    const { provider_id } = req.params;
+
+    let restaurants;
+
+    if (!provider_id) {
+      // Returning all the restaurants
+      restaurants = await Restaurant.findAll({
+        where: {},
+        attributes: [
+          'id',
+          'name',
+          'street_address',
+          'number_address',
+          'description',
+        ],
+        include: [
+          { model: File, as: 'avatar', attributes: ['path', 'name', 'url'] },
+        ],
+      });
+    } else {
+      // Returning the restaurants owned by the provider
+      restaurants = await Restaurant.findAll({
+        where: { provider_id },
+        attributes: [
+          'id',
+          'name',
+          'street_address',
+          'number_address',
+          'description',
+        ],
+        include: [{ model: File, as: 'avatar', attributes: ['name', 'path'] }],
+      });
+    }
+
+    return res.json({ restaurants });
+  }
+
   async store(req, res) {
     const schema = Joi.object().keys({
       name: Joi.string().required(),
@@ -44,44 +82,6 @@ class RestaurantController {
     }
 
     return res.json(restaurantData);
-  }
-
-  async index(req, res) {
-    const { provider_id } = req.params;
-
-    let restaurants;
-
-    if (!provider_id) {
-      // Returning all the restaurants
-      restaurants = await Restaurant.findAll({
-        where: {},
-        attributes: [
-          'id',
-          'name',
-          'street_address',
-          'number_address',
-          'description',
-        ],
-        include: [
-          { model: File, as: 'avatar', attributes: ['path', 'name', 'url'] },
-        ],
-      });
-    } else {
-      // Returning the restaurants owned by the provider
-      restaurants = await Restaurant.findAll({
-        where: { provider_id },
-        attributes: [
-          'id',
-          'name',
-          'street_address',
-          'number_address',
-          'description',
-        ],
-        include: [{ model: File, as: 'avatar', attributes: ['name', 'path'] }],
-      });
-    }
-
-    return res.json({ restaurants });
   }
 }
 
