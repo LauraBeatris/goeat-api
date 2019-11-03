@@ -9,7 +9,8 @@ import {
 } from 'date-fns';
 import { Op } from 'sequelize';
 
-import Mail from '../../lib/Mail';
+import Queue from '../../lib/Queue';
+import CancellationMail from '../jobs/CancellationMail';
 
 import Appointment from '../models/Appointment';
 import Restaurant from '../models/Restaurant';
@@ -18,10 +19,8 @@ import Provider from '../models/Provider';
 import File from '../models/File';
 import Notification from '../schemas/Notification';
 
-
 class AppointmentController {
   async index(req, res) {
-    const isProvider = req.query.provider === 'true';
     const { page = 1, date } = req.query;
 
     // Finding the user
@@ -140,64 +139,6 @@ class AppointmentController {
     return res.json(appointment);
   }
 
-  async index(req, res) {
-    const { page = 1, date } = req.query;
-
-    // Finding the user
-    const user = await User.findByPk(req.userId);
-
-    if (!user) {
-      return res.status(404).json({
-        err: 'User not found',
-      });
-    }
-
-    // Date Validation Operations - Filtering by day
-    const parsedDate = parseISO(date);
-    const queryDate = {};
-    if (date)
-      queryDate.date = {
-        [Op.between]: [startOfDay(parsedDate), endOfDay(parsedDate)],
-      };
-
-    // Finding the appointments of the user which wasn't cancelled
-    const appointments = await Appointment.findAll({
-      where: { user_id: req.userId, canceled_at: null, ...queryDate },
-      order: ['date'],
-      attributes: ['id', 'date'],
-      limit: 20,
-      offset: (page - 1) * 20,
-      include: [
-        {
-          model: Restaurant,
-          as: 'restaurant',
-          attributes: [
-            'id',
-            'name',
-            'street_address',
-            'number_address',
-            'city_address',
-            'state_address',
-          ],
-        },
-        {
-          model: User,
-          as: 'user',
-          attributes: ['id', 'name', 'email'],
-          include: [
-            {
-              model: File,
-              as: 'avatar',
-              attributes: ['id', 'path', 'url'],
-            },
-          ],
-        },
-      ],
-    });
-
-    return res.json({ appointments });
-  }
-
   async delete(req, res) {
     const { appointment_id } = req.params;
 
@@ -233,6 +174,12 @@ class AppointmentController {
       return res.status(404).json({ error: 'Appointment not found' });
     }
 
+    if (appointment && appointment.canceled_at !== null) {
+      return res
+        .status(420)
+        .json({ error: 'This appointment was already canceled' });
+    }
+
     // The user can cancel only his/her appointments - Verifying if the id is different
     if (appointment.user_id !== req.userId) {
       return res.status(401).json({
@@ -258,18 +205,7 @@ class AppointmentController {
       "'Day' dd 'of' MMMM',' H:mm 'Hours'"
     );
 
-    await Mail.sendMail({
-      to: `${appointment.restaurant.provider.name} <${appointment.restaurant.provider.email}>`,
-      subject: 'Cancelled appointment',
-      template: 'cancellation',
-      context: {
-        provider: appointment.restaurant.provider.name,
-        restaurant: appointment.restaurant.name,
-        user: appointment.user.name,
-        date: formatedDate,
-      },
-    });
-
+    await Queue.add(CancellationMail.key, { appointment, formatedDate });
     return res.json(appointment);
   }
 }
