@@ -7,6 +7,8 @@ class Restaurant extends Model {
         name: Sequelize.STRING,
         street_address: Sequelize.STRING,
         number_address: Sequelize.STRING,
+        city_address: Sequelize.STRING,
+        state_address: Sequelize.STRING,
         description: Sequelize.STRING,
       },
       {
@@ -17,6 +19,10 @@ class Restaurant extends Model {
 
   static associate(models) {
     this.belongsTo(models.File, { foreignKey: 'file_id', as: 'avatar' });
+    this.belongsTo(models.Provider, {
+      foreignKey: 'provider_id',
+      as: 'provider',
+    });
   }
 }
 

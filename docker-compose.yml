@@ -14,7 +14,8 @@ services:
     expose:
         - '3306'
   mongo:
-    image: mongo
+    image: mongo:latest
+    container_name: goeat
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
