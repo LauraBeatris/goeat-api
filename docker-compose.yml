@@ -1,4 +1,3 @@
-
 version: '3.3'
 
 services:
@@ -15,8 +14,7 @@ services:
     expose:
         - '3306'
   mongo:
-    image: mongo:latest
-    container_name: goeat
+    image: mongo
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
@@ -24,3 +22,4 @@ services:
       - "27017:27017"
     expose: 
       - '27017'
+
