@@ -1,23 +1,26 @@
-import * as Yup from 'yup';
+import Joi from 'joi';
 import User from '../models/User';
 
 // TO DO - Use Joi for validation
 class UserController {
   async store(req, res) {
     // Input data validation
-    const schema = Yup.object().shape({
-      name: Yup.string().required(),
-      email: Yup.string()
+    const schema = Joi.object().keys({
+      name: Joi.string().required(),
+      email: Joi.string()
         .email()
         .required(),
-      password: Yup.string()
+      password: Joi.string()
         .required()
         .min(6),
+      file_id: Joi.number().required(),
     });
 
-    if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation fails' });
-    }
+    Joi.validate(req.body, schema, err => {
+      if (err) {
+        return res.status(422).json({ err: err.details });
+      }
+    });
 
     // Verifying if there's another user with the same email
     const userExists = await User.findOne({ where: { email: req.body.email } });
@@ -27,8 +30,8 @@ class UserController {
     }
 
     // Creating the user
-    const { name, email, file_id } = await User.create(req.body);
-    return res.json({ name, email, file_id });
+    const { id, name, email, file_id } = await User.create(req.body);
+    return res.json({ id, name, email, file_id });
   }
 
   async update(req, res) {

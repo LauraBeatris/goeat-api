@@ -8,9 +8,10 @@ import ProviderController from './app/controllers/ProviderController';
 import SessionController from './app/controllers/SessionController';
 import FileController from './app/controllers/FileController';
 import RestaurantController from './app/controllers/RestaurantController';
+import FoodController from './app/controllers/FoodController';
 import AppointmentController from './app/controllers/AppointmentController';
 import ScheduleController from './app/controllers/ScheduleController';
-import FoodController from './app/controllers/FoodController';
+import NotificationsController from './app/controllers/NotificationsController';
 
 import AuthMiddleware from './app/middlewares/auth';
 
@@ -41,7 +42,11 @@ routes.get('/foods/:restaurant_id', FoodController.index);
 
 routes.post('/appointments', AppointmentController.store);
 routes.get('/appointments', AppointmentController.index);
+routes.delete('/appointments/:appointment_id', AppointmentController.delete);
 
-routes.get('/schedules', ScheduleController.index);
+routes.get('/schedules/:restaurant_id', ScheduleController.index);
+
+routes.get('/notifications', NotificationsController.index);
+routes.put('/notifications/:notification_id', NotificationsController.update);
 
 export default routes;

@@ -47,7 +47,8 @@ class RestaurantController {
       name: Joi.string().required(),
       street_address: Joi.string().required(),
       number_address: Joi.number().required(),
-      // city_address: Joi.string().required(),
+      city_address: Joi.string().required(),
+      state_address: Joi.string().required(),
       file_id: Joi.number(),
     });
 
