@@ -56,8 +56,9 @@ class AppointmentController {
     }
 
     // Checking if the date it's available for booking
-    const checkAvailability = await Appointment.findOne({ where: { date } });
-
+    const checkAvailability = await Appointment.findOne({
+      where: { date, canceled_at: null },
+    });
     if (checkAvailability) {
       return res.status(400).json({ err: 'This date already was booked' });
     }
@@ -207,8 +208,13 @@ class AppointmentController {
     await Mail.sendMail({
       to: `${appointment.restaurant.provider.name} <${appointment.restaurant.provider.email}>`,
       subject: 'Cancelled appointment',
-      text: `You have an new cancelled appointment for ${appointment.restaurant.name} 
-      - Date: ${formatedDate} - Costumer: ${appointment.user.name} <${appointment.user.email}>`,
+      template: 'cancellation',
+      context: {
+        provider: appointment.restaurant.provider.name,
+        restaurant: appointment.restaurant.name,
+        user: appointment.user.name,
+        date: formatedDate,
+      },
     });
 
     return res.json(appointment);
