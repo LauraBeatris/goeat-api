@@ -7,6 +7,12 @@ class FileController {
     const { id } = await File.create({ name, path });
     return res.json({ id, path });
   }
+
+  async index(req, res) {
+    const files = await File.findAll();
+
+    return res.json(files);
+  }
 }
 
 export default new FileController();
