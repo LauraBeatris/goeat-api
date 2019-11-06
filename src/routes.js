@@ -28,6 +28,7 @@ routes.use(AuthMiddleware);
 
 // File -> name of the field in the multipart form data
 routes.post('/files/', upload.single('file'), FileController.store);
+routes.get('/files/', FileController.index);
 
 routes.put('/users', UserController.update);
 
