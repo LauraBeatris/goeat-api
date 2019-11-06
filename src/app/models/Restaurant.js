@@ -10,6 +10,9 @@ class Restaurant extends Model {
         city_address: Sequelize.STRING,
         state_address: Sequelize.STRING,
         description: Sequelize.STRING,
+        opened_time: Sequelize.DATE,
+        closed_time: Sequelize.DATE,
+        is_open: Sequelize.BOOLEAN,
       },
       {
         sequelize,
@@ -23,6 +26,7 @@ class Restaurant extends Model {
       foreignKey: 'provider_id',
       as: 'provider',
     });
+    this.hasMany(models.Foods, { foreignKey: 'restaurant_id', as: 'food' });
   }
 }
 

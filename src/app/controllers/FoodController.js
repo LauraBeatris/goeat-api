@@ -14,7 +14,16 @@ class FoodController {
       });
     }
 
-    const foods = await Food.findAll({ where: { restaurant_id } });
+    const foods = await Food.findAll({
+      where: { restaurant_id },
+      attributes: ['name', 'type', 'price'],
+      include: [
+        {
+          model: Restaurant,
+          as: 'restaurant',
+        },
+      ],
+    });
     return res.json({ foods });
   }
 
@@ -23,7 +32,7 @@ class FoodController {
       name: Joi.string().required(),
       price: Joi.number().required(),
       file_id: Joi.number().required(),
-      restaurant_id: Joi.number().required(),
+      type: Joi.string().required(),
     });
 
     Joi.validate(req.body, schema, err => {
@@ -49,14 +58,12 @@ class FoodController {
       });
     }
 
-    const { name, price, file_id } = req.body;
-
     // Creating the food
-    const { id } = await Food.create({ name, price, file_id });
+    const food = await Food.create(req.body);
     // Relationship with the restaurant
-    await restaurant.addFood(id);
+    await restaurant.addFood(food.id);
 
-    return res.json({ id, name, price });
+    return res.json(food);
   }
 }
 

@@ -7,17 +7,37 @@ class RestaurantController {
   async index(req, res) {
     const { provider_id } = req.params;
 
+    // Filters
+    const { city = null, state = null, street = null, page = 1 } = req.query;
+    let query;
+
+    if (city) {
+      query.city_address = city;
+    }
+
+    if (state) {
+      query.state_address = state;
+    }
+
+    if (street) {
+      query.street_address = street;
+    }
+
     let restaurants;
 
     if (!provider_id) {
       // Returning all the restaurants
       restaurants = await Restaurant.findAll({
-        where: {},
+        where: { ...query },
+        limit: 20,
+        offset: (page - 1) * 20,
         attributes: [
           'id',
           'name',
           'street_address',
           'number_address',
+          'state_address',
+          'city_address',
           'description',
         ],
         include: [
@@ -50,6 +70,8 @@ class RestaurantController {
       city_address: Joi.string().required(),
       state_address: Joi.string().required(),
       file_id: Joi.number(),
+      opened_time: Joi.date().required(),
+      closed_time: Joi.date().required(),
     });
 
     Joi.validate(req.body, schema, err => {

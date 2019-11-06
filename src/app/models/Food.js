@@ -6,6 +6,7 @@ class Foods extends Model {
       {
         name: Sequelize.STRING,
         price: Sequelize.FLOAT,
+        type: Sequelize.STRING,
       },
       {
         sequelize,
