@@ -11,7 +11,7 @@ import Appointment from '../app/models/Appointment';
 import Foods from '../app/models/Food';
 
 dotenv.config({
-  path: process.env.NODE_ENV === 'test' ? '.env.testing' : '.env',
+  path: process.env.NODE_ENV === 'development' ? '.env.development' : '.env',
 });
 
 const models = [User, Restaurant, Provider, File, Appointment, Foods];

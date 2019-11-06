@@ -10,11 +10,13 @@
     "linting-all": "yarn eslint --fix src --ext js"
   },
   "dependencies": {
+    "@sentry/node": "5.7.1",
     "bcryptjs": "^2.4.3",
     "beequeue": "^0.3.4",
     "date-fns": "^2.0.0-beta.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
     "express-handlebars": "^3.1.0",
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",
@@ -25,6 +27,7 @@
     "nodemailer-express-handlebars": "^3.1.0",
     "prettier": "^1.18.2",
     "sequelize": "^5.21.1",
+    "youch": "^2.0.10",
     "yup": "^0.27.0"
   },
   "devDependencies": {
