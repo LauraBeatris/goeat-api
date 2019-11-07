@@ -12,6 +12,7 @@ import FoodController from './app/controllers/FoodController';
 import AppointmentController from './app/controllers/AppointmentController';
 import ScheduleController from './app/controllers/ScheduleController';
 import NotificationsController from './app/controllers/NotificationsController';
+import DashboardController from './app/controllers/DashboardController';
 
 import AuthMiddleware from './app/middlewares/auth';
 
@@ -49,5 +50,8 @@ routes.get('/schedules/:restaurant_id', ScheduleController.index);
 
 routes.get('/notifications', NotificationsController.index);
 routes.put('/notifications/:notification_id', NotificationsController.update);
+
+routes.post('/dashboard/open/:restaurant_id', DashboardController.store);
+routes.delete('/dashboard/close/:restaurant_id', DashboardController.delete);
 
 export default routes;
