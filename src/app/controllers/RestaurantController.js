@@ -40,7 +40,7 @@ class RestaurantController {
     if (!provider_id) {
       // Returning all the restaurants
       restaurants = await Restaurant.findAll({
-        where: { ...query },
+        where: { ...query, is_open: true },
         limit: 20,
         offset: (page - 1) * 20,
         attributes: [
@@ -59,7 +59,7 @@ class RestaurantController {
     } else {
       // Returning the restaurants owned by the provider
       restaurants = await Restaurant.findAll({
-        where: { provider_id },
+        where: { provider_id, is_open: true },
         attributes: [
           'id',
           'name',
