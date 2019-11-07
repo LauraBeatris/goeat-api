@@ -6,8 +6,7 @@ class FoodController {
   // Listing all the foods of the restaurant
   async index(req, res) {
     const { restaurant_id } = req.params;
-
-    // TO DO => Filtering by type and restaurant
+    const { type = null } = req.query;
 
     if (!restaurant_id) {
       return res.status(404).json({
@@ -16,8 +15,17 @@ class FoodController {
       });
     }
 
+    // Editing query object
+    const query = {
+      restaurant_id,
+    };
+
+    if (type) {
+      query.type = type;
+    }
+
     const foods = await Food.findAll({
-      where: { restaurant_id },
+      where: { ...query },
       attributes: ['name', 'type', 'price'],
       include: [
         {
