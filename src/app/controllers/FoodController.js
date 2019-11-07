@@ -7,6 +7,8 @@ class FoodController {
   async index(req, res) {
     const { restaurant_id } = req.params;
 
+    // TO DO => Filtering by type and restaurant
+
     if (!restaurant_id) {
       return res.status(404).json({
         err:

@@ -9,9 +9,8 @@ class Restaurant extends Model {
         number_address: Sequelize.STRING,
         city_address: Sequelize.STRING,
         state_address: Sequelize.STRING,
+        country_address: Sequelize.STRING,
         description: Sequelize.STRING,
-        opened_time: Sequelize.DATE,
-        closed_time: Sequelize.DATE,
         is_open: Sequelize.BOOLEAN,
       },
       {
@@ -24,7 +23,7 @@ class Restaurant extends Model {
     this.belongsTo(models.File, { foreignKey: 'file_id', as: 'avatar' });
     this.belongsTo(models.Provider, {
       foreignKey: 'provider_id',
-      as: 'provider',
+      as: 'restaurant',
     });
     this.hasMany(models.Foods, { foreignKey: 'restaurant_id', as: 'food' });
   }

@@ -7,9 +7,17 @@ class RestaurantController {
   async index(req, res) {
     const { provider_id } = req.params;
 
+    // TO DO -> Filtering by address and if it's open
+
     // Filters
-    const { city = null, state = null, street = null, page = 1 } = req.query;
-    let query;
+    const {
+      city = null,
+      state = null,
+      street = null,
+      country = null,
+      page = 1,
+    } = req.query;
+    const query = {};
 
     if (city) {
       query.city_address = city;
@@ -21,6 +29,10 @@ class RestaurantController {
 
     if (street) {
       query.street_address = street;
+    }
+
+    if (country) {
+      query.country_address = country;
     }
 
     let restaurants;
@@ -53,6 +65,7 @@ class RestaurantController {
           'name',
           'street_address',
           'number_address',
+          'country_address',
           'description',
         ],
         include: [{ model: File, as: 'avatar', attributes: ['name', 'path'] }],
@@ -69,9 +82,9 @@ class RestaurantController {
       number_address: Joi.number().required(),
       city_address: Joi.string().required(),
       state_address: Joi.string().required(),
+      country_address: Joi.string().required(),
       file_id: Joi.number(),
-      opened_time: Joi.date().required(),
-      closed_time: Joi.date().required(),
+      is_closed: Joi.boolean(),
     });
 
     Joi.validate(req.body, schema, err => {
@@ -94,12 +107,12 @@ class RestaurantController {
 
     let restaurantData;
     if (provider) {
-      // Creating the restaurant
+      // Creating the restauran
+
       const restaurant = await Restaurant.create(req.body);
       restaurantData = restaurant;
 
       // Creating the owner relationship with the restaurant
-      provider.addRestaurant(restaurant.id);
     } else {
       return res.status(404).json({ err: 'The provider was not found' });
     }
