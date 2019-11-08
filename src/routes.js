@@ -1,7 +1,6 @@
 import { Router } from 'express';
-import multer from 'multer';
 
-import multerConfig from './config/multer';
+import multerUpload from './config/multer';
 
 import UserController from './app/controllers/UserController';
 import ProviderController from './app/controllers/ProviderController';
@@ -17,7 +16,6 @@ import DashboardController from './app/controllers/DashboardController';
 import AuthMiddleware from './app/middlewares/auth';
 
 const routes = new Router();
-const upload = multer(multerConfig);
 
 /* Routes */
 routes.post('/users', UserController.store);
@@ -28,7 +26,7 @@ routes.post('/sessions', SessionController.store);
 routes.use(AuthMiddleware);
 
 // File -> name of the field in the multipart form data
-routes.post('/files/', upload.single('file'), FileController.store);
+routes.post('/files/', multerUpload, FileController.store);
 routes.get('/files/', FileController.index);
 
 routes.put('/users', UserController.update);
