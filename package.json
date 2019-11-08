@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@sentry/node": "5.7.1",
+    "aws-sdk": "^2.567.0",
     "bcryptjs": "^2.4.3",
     "beequeue": "^0.3.4",
     "date-fns": "^2.0.0-beta.5",
@@ -22,6 +23,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.7.7",
     "multer": "^1.4.2",
+    "multer-s3": "^2.9.0",
     "mysql2": "^1.5.2",
     "nodemailer": "^6.3.1",
     "nodemailer-express-handlebars": "^3.1.0",
