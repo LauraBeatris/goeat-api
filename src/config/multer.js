@@ -38,7 +38,7 @@ const multerS3Config = multer({
 }).single('file');
 
 // Multer Middleware - Sending S3 Object URL or error
-export default (req, res) => {
+export default (req, res, next) => {
   multerS3Config(req, res, error => {
     console.log('File successfully sent', req.file);
     console.log('error', error);
@@ -56,11 +56,10 @@ export default (req, res) => {
       const imageName = req.file.key;
       const imageLocation = req.file.location;
 
-      // TO DO -> Save the file name into database into profile model
-      return res.json({
-        image: imageName,
-        location: imageLocation,
-      });
+      // Saving in database
+      req.image = imageName;
+      req.imageLocation = imageLocation;
+      return next();
     }
   });
 };
