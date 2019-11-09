@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "NODE_ENV=development nodemon src/server.js",
     "start": "NODE_ENV=production nodemon src/server.js",
-    "queue": "nodemon src/queue.js",
+    "queue-dev": "NODE_ENV=development nodemon src/queue.js",
+    "queue": "NODE_ENV=production nodemon src/queue.js",
     "dev:debug": "nodemon --inspect src/server.js",
     "linting-all": "yarn eslint --fix src --ext js"
   },
@@ -39,6 +40,7 @@
     "eslint-config-prettier": "^6.4.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-prettier": "^3.1.1",
+    "node-env-run": "^3.0.2",
     "nodemon": "^1.19.4",
     "sequelize-cli": "^5.5.1",
     "sucrase": "^3.10.1"

@@ -95,7 +95,6 @@ class AppointmentController {
     }
 
     const { provider_id } = restaurant;
-
     /*
       Date verifications
     */
@@ -109,7 +108,7 @@ class AppointmentController {
 
     // Checking if the date it's available for booking
     const checkAvailability = await Appointment.findOne({
-      where: { date, canceled_at: null },
+      where: { date, canceled_at: null, restaurant_id },
     });
     if (checkAvailability) {
       return res.status(400).json({ err: 'This date already was booked' });

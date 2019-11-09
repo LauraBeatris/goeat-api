@@ -1,0 +1,58 @@
+{
+  "name": "cls-bluebird",
+  "version": "2.1.0",
+  "description": "Make bluebird work with the continuation-local-storage module.",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "npm run jshint && npm run test-all",
+    "test-all": "npm run test-bluebird2 && npm run test-bluebird3",
+    "test-bluebird2": "BLUEBIRD_VERSION=2 npm run test-main",
+    "test-bluebird3": "BLUEBIRD_VERSION=3 npm run test-main",
+    "test-main": "mocha 'test/**/*.test.js'",
+    "jshint": "jshint lib test",
+    "cover": "npm run cover-main && rm -rf coverage",
+    "coveralls": "npm run cover-main && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage",
+    "cover-main": "COVERAGE=true BLUEBIRD_VERSION=3 istanbul cover _mocha --report lcovonly -- -R spec 'test/**/*.test.js'",
+    "travis": "bin/travis.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TimBeyer/cls-bluebird.git"
+  },
+  "keywords": [
+    "continuation-local-storage",
+    "cls",
+    "bluebird",
+    "continuation",
+    "local",
+    "storage",
+    "promise",
+    "promises",
+    "async",
+    "thread",
+    "glue",
+    "baling-wire",
+    "patch"
+  ],
+  "author": "Tim Beyer <tim.beyer@gmail.com>",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/TimBeyer/cls-bluebird/issues"
+  },
+  "dependencies": {
+    "shimmer": "^1.1.0",
+    "is-bluebird": "^1.0.2"
+  },
+  "devDependencies": {
+    "mocha": "^4.0.1",
+    "chai": "^4.1.2",
+    "jshint": "^2.9.5",
+    "istanbul": "^0.4.5",
+    "coveralls": "^3.0.0",
+    "continuation-local-storage": "^3.2.1",
+    "bluebird": "^2.10.2",
+    "bluebird2": "^3.0.0",
+    "bluebird3": "^3.1.1",
+    "lodash": "^4.17.4"
+  }
+}

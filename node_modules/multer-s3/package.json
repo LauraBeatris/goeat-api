@@ -1,0 +1,41 @@
+{
+  "name": "multer-s3",
+  "version": "2.9.0",
+  "description": "Streaming multer storage engine for AWS S3",
+  "main": "index.js",
+  "scripts": {
+    "test": "standard && mocha test/basic.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/badunk/multer-s3.git"
+  },
+  "keywords": [
+    "multer",
+    "s3",
+    "amazon",
+    "aws"
+  ],
+  "author": "badunk",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/badunk/multer-s3/issues"
+  },
+  "homepage": "https://github.com/badunk/multer-s3#readme",
+  "dependencies": {
+    "file-type": "^3.3.0",
+    "is-svg": "^2.1.0",
+    "run-parallel": "^1.1.6"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.2.32",
+    "concat-stream": "^1.5.1",
+    "express": "^4.13.1",
+    "form-data": "^1.0.0-rc3",
+    "mocha": "^2.2.5",
+    "multer": "^1.1.0",
+    "on-finished": "^2.3.0",
+    "standard": "^5.4.1",
+    "xtend": "^4.0.1"
+  }
+}

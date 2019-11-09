@@ -109,7 +109,10 @@ class RestaurantController {
     if (provider) {
       // Creating the restauran
 
-      const restaurant = await Restaurant.create(req.body);
+      const restaurant = await Restaurant.create({
+        ...req.body,
+        provider_id: req.userId,
+      });
       restaurantData = restaurant;
 
       // Creating the owner relationship with the restaurant
