@@ -29,7 +29,7 @@ class FileController {
   }
 
   async show(req, res) {
-    const { file_id } = req.param;
+    const { file_id } = req.params;
 
     // Data validation
     if (!file_id) {
@@ -43,7 +43,9 @@ class FileController {
       return res.status(404).json({ error: 'File not found' });
     }
 
-    return res.json(file);
+    const { id, name, url } = file;
+
+    return res.json({ id, name, url });
   }
 
   async index(req, res) {

@@ -6,10 +6,10 @@ dotenv.config({
 
 module.exports = {
   dialect: 'mysql',
-  host: process.env.MYSQL_HOST,
-  database: process.env.MYSQL_DATABASE,
-  username: process.env.MYSQL_USER,
-  password: process.env.MYSQL_PASSWORD,
+  host: process.env.RDS_HOST,
+  database: process.env.RDS_DATABASE,
+  username: process.env.RDS_USER,
+  password: process.env.RDS_PASSWORD,
   define: {
     timestamps: true,
     underscored: true,
