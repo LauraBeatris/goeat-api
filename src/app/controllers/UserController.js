@@ -1,4 +1,5 @@
 import Joi from 'joi';
+import * as Yup from 'yup';
 import User from '../models/User';
 
 // TO DO - Use Joi for validation

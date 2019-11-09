@@ -1,4 +1,8 @@
-export default {
+const redisConfig = {
   host: process.env.REDIS_HOST,
-  port: process.env.REDIS_PORT,
 };
+
+if (process.env.NODE_ENV === 'development')
+  redisConfig.port = process.env.REDIS_PORT;
+
+export default redisConfig;

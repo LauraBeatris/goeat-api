@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon src/server.js",
+    "dev": "NODE_ENV=development nodemon src/server.js",
+    "start": "NODE_ENV=production nodemon src/server.js",
     "queue": "nodemon src/queue.js",
     "dev:debug": "nodemon --inspect src/server.js",
     "linting-all": "yarn eslint --fix src --ext js"
