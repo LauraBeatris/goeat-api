@@ -1,1 +1,1 @@
-web: yarn start & yarn queue
+web: ./build/server.js & ./build/queue.js
