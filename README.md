@@ -67,6 +67,14 @@ To start the application
   yarn dev 
   // Production mode - .env
   yarn start
+  
+```
+To run the queue 
+```
+  // Development mode - .env.development
+  yarn queue-dev
+  // Production mode - .env
+  yarn queue
 ```
 
 
