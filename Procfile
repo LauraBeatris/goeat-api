@@ -1,1 +1,1 @@
-web: ./build/server.js & ./build/queue.js
+web: node ./build/server.js & node ./build/queue.js
