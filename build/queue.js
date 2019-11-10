@@ -1,4 +1,4 @@
-"use strict";const dotenv = require('dotenv');
+const dotenv = require('dotenv');
 const Queue = require('./lib/Queue');
 
 dotenv.config({
