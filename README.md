@@ -2,7 +2,7 @@
   <img alt="GoEat" title="GoEat" src=".github/delivery-icon.gif" width="200px" />
 </h1>
 
-<h2 style="color:red"> GoEat </h3>
+<h2 style="color:red" align="center"> GoEat </h3>
 <h3 align="center">
   Express Application for a Food Delivery App 
 </h3>
