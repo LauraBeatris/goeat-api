@@ -1,1 +1,1 @@
-web: node ./src/server.js & node ./src/queue.js
+web: node -r sucrase/register ./src/server.js & node -r sucrase/register ./src/queue.js
