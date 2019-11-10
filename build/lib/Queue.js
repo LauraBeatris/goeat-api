@@ -1,16 +1,6 @@
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
-}
-Object.defineProperty(exports, '__esModule', { value: true });
-const _beequeue = require('beequeue');
-
-const _beequeue2 = _interopRequireDefault(_beequeue);
-const _CancellationMail = require('../app/jobs/CancellationMail');
-
-const _CancellationMail2 = _interopRequireDefault(_CancellationMail);
-const _redis = require('../config/redis');
-
-const _redis2 = _interopRequireDefault(_redis);
+"use strict"; function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }Object.defineProperty(exports, "__esModule", {value: true});var _beequeue = require('beequeue'); var _beequeue2 = _interopRequireDefault(_beequeue);
+var _CancellationMail = require('../app/jobs/CancellationMail'); var _CancellationMail2 = _interopRequireDefault(_CancellationMail);
+var _redis = require('../config/redis'); var _redis2 = _interopRequireDefault(_redis);
 
 const jobs = [_CancellationMail2.default];
 
@@ -56,4 +46,4 @@ class Queue {
   }
 }
 
-exports.default = new Queue();
+exports. default = new Queue();

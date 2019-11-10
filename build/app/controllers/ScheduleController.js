@@ -1,22 +1,10 @@
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
-}
-Object.defineProperty(exports, '__esModule', { value: true });
-const _datefns = require('date-fns');
-const _sequelize = require('sequelize');
+"use strict"; function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }Object.defineProperty(exports, "__esModule", {value: true});var _datefns = require('date-fns');
+var _sequelize = require('sequelize');
 
-const _Appointment = require('../models/Appointment');
-
-const _Appointment2 = _interopRequireDefault(_Appointment);
-const _Restaurant = require('../models/Restaurant');
-
-const _Restaurant2 = _interopRequireDefault(_Restaurant);
-const _User = require('../models/User');
-
-const _User2 = _interopRequireDefault(_User);
-const _File = require('../models/File');
-
-const _File2 = _interopRequireDefault(_File);
+var _Appointment = require('../models/Appointment'); var _Appointment2 = _interopRequireDefault(_Appointment);
+var _Restaurant = require('../models/Restaurant'); var _Restaurant2 = _interopRequireDefault(_Restaurant);
+var _User = require('../models/User'); var _User2 = _interopRequireDefault(_User);
+var _File = require('../models/File'); var _File2 = _interopRequireDefault(_File);
 
 class ScheduleController {
   async index(req, res) {
@@ -45,10 +33,7 @@ class ScheduleController {
     const queryDate = {};
     if (date)
       queryDate.date = {
-        [_sequelize.Op.between]: [
-          _datefns.startOfDay.call(void 0, parsedDate),
-          _datefns.endOfDay.call(void 0, parsedDate),
-        ],
+        [_sequelize.Op.between]: [_datefns.startOfDay.call(void 0, parsedDate), _datefns.endOfDay.call(void 0, parsedDate)],
       };
 
     // Finding the appointments of the restaurant which wasn't cancelled
@@ -88,4 +73,4 @@ class ScheduleController {
   }
 }
 
-exports.default = new ScheduleController();
+exports. default = new ScheduleController();
