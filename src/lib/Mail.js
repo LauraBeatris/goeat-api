@@ -1,19 +1,25 @@
 import nodemailer from 'nodemailer';
 import exphbs from 'express-handlebars';
 import nodemailerhbs from 'nodemailer-express-handlebars';
+import smtpPassword from 'aws-smtp-credentials';
+
 import { resolve } from 'path';
 import mailConfig from '../config/mail';
 
 class Mail {
   constructor() {
-    const { host, port, secure, auth } = mailConfig;
+    // const { host, port, auth } = mailConfig;
 
     // Connecting to an external mail service
     this.transporter = nodemailer.createTransport({
-      host,
-      port,
-      secure,
-      auth: auth.user ? auth : null,
+      port: process.env.MAIL_PORT,
+      host: process.env.MAIL_HOST,
+      secure: true,
+      auth: {
+        user: process.env.AWS_IAM_USER_KEY,
+        pass: smtpPassword(process.env.AWS_IAM_USER_SECRET),
+      },
+      debug: true,
     });
 
     this.configureTemplates();

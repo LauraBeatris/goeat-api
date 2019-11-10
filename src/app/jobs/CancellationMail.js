@@ -9,7 +9,6 @@ class CancellationMail {
   // Run this for each task of the job
   async handle({ data }) {
     const { appointment, formatedDate } = data;
-
     await Mail.sendMail({
       to: `${appointment.restaurant.provider.name} <${appointment.restaurant.provider.email}>`,
       subject: 'Cancelled appointment',

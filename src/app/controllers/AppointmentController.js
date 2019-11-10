@@ -147,28 +147,9 @@ class AppointmentController {
       });
     }
 
-    const appointment = await Appointment.findByPk(appointment_id, {
-      include: [
-        {
-          model: Restaurant,
-          as: 'restaurant',
-          attributes: ['id', 'name', 'provider_id'],
-          include: [
-            {
-              model: Provider,
-              foreignKey: 'provider_id',
-              as: 'provider',
-            },
-          ],
-        },
-        {
-          model: User,
-          as: 'user',
-          attributes: ['id', 'name', 'email'],
-        },
-      ],
-    });
+    console.log('hey');
 
+    const appointment = await Appointment.findByPk(appointment_id);
     if (!appointment) {
       return res.status(404).json({ error: 'Appointment not found' });
     }
