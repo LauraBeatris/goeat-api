@@ -1,1 +1,1 @@
-web: node -r sucrase/register ./src/server.js & node -r sucrase/register ./src/queue.js
+web: yarn start & yarn queue
