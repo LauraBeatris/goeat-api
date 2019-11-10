@@ -2,6 +2,7 @@
   <img alt="GoEat" title="GoEat" src=".github/delivery-icon.gif" width="200px" />
 </h1>
 
+<h2 style="color:red"> GoEat </h3>
 <h3 align="center">
   Express Application for a Food Delivery App 
 </h3>
@@ -23,6 +24,7 @@
 <p align="center">
   <a href="#rocket-about-the-project">About the project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#ballot_box_with_check-goals">Goals</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#checkered_flag">Goals</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#memo-licence">Licence</a>
 </p>
 
@@ -34,6 +36,39 @@ The user has access of the open restaurants and is able to search for establishm
 
 ## :ballot_box_with_check: Goals
 Fast and clean application for providers and users who want to enjoy a good delivery food service
+
+## :checkered_flag: Installation 
+First, you need to install docker and docker-compose on your machine and create a .env similar
+to the .env.example in the files above. 
+<br>
+To run the containers 
+
+```
+sudo docker-compose up
+```
+
+Check if the containers are running
+
+```
+sudo docker ps
+```
+
+<br>
+
+Now, to install the dependencies
+
+```
+yarn install
+```
+
+To start the application 
+```
+  // Development mode - .env.development
+  yarn dev 
+  // Production mode - .env
+  yarn start
+```
+
 
 ## :memo: Licence
 
