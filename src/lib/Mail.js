@@ -49,7 +49,7 @@ class Mail {
       (err, info) => {
         if (err) return console.log(err);
 
-        return console.log(info);
+        return console.log('info', info);
       }
     );
   }
