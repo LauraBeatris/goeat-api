@@ -1,6 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
-const { resolve } = require('path');
+const cors = require('cors');
 const Sentry = require('@sentry/node');
 const Youch = require('youch');
 require('express-async-errors');
@@ -31,11 +31,7 @@ class App {
     // Ready to receive request in json format
     this.server.use(express.json());
 
-    // Ready to access static files
-    this.server.use(
-      '/files',
-      express.static(resolve(__dirname, '..', 'tmp', 'uploads'))
-    );
+    this.server.use(cors());
   }
 
   routes() {
@@ -43,7 +39,9 @@ class App {
     this.server.use(routes);
 
     // The error handler must be before any other error middleware and after all controllers
-    this.server.use(Sentry.Handlers.errorHandler());
+    if (process.env.NODE_ENV === 'production') {
+      this.server.use(Sentry.Handlers.errorHandler());
+    }
   }
 
   exceptionHandler() {

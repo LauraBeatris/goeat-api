@@ -94,7 +94,7 @@ class AppointmentController {
     }
 
     const { provider_id } = restaurant;
-
+    console.log('restaurant', restaurant);
     /*
       Date verifications
     */
@@ -157,12 +157,14 @@ class AppointmentController {
             {
               model: Provider,
               as: 'restaurant',
+              attributes: ['id', 'name', 'email'],
             },
           ],
         },
         {
           model: User,
           as: 'user',
+          attributes: ['id', 'name', 'email'],
         },
       ],
     });
@@ -201,10 +203,14 @@ class AppointmentController {
       "'Day' dd 'of' MMMM',' H:mm 'Hours'"
     );
 
-    await Queue.queue.create(CancellationMail.key, {
+    console.log('chamando o job', CancellationMail.key);
+    const job = Queue.create(CancellationMail.key, {
       appointment,
       formatedDate,
-    });
+    }).save();
+
+    console.log(job);
+
     return res.json(appointment);
   }
 }
