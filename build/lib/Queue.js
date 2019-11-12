@@ -25,4 +25,4 @@ class Queue {
   }
 }
 
-exports. default = new Queue().queue;
+exports. default = new Queue();

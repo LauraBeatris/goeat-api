@@ -201,7 +201,10 @@ class AppointmentController {
       "'Day' dd 'of' MMMM',' H:mm 'Hours'"
     );
 
-    await Queue.create(CancellationMail.key, { appointment, formatedDate });
+    await Queue.queue.create(CancellationMail.key, {
+      appointment,
+      formatedDate,
+    });
     return res.json(appointment);
   }
 }
