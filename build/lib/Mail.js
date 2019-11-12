@@ -1,7 +1,8 @@
 "use strict"; function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }Object.defineProperty(exports, "__esModule", {value: true});var _nodemailer = require('nodemailer'); var _nodemailer2 = _interopRequireDefault(_nodemailer);
 var _expresshandlebars = require('express-handlebars'); var _expresshandlebars2 = _interopRequireDefault(_expresshandlebars);
 var _nodemailerexpresshandlebars = require('nodemailer-express-handlebars'); var _nodemailerexpresshandlebars2 = _interopRequireDefault(_nodemailerexpresshandlebars);
-var _nodemailersestransport = require('nodemailer-ses-transport'); var _nodemailersestransport2 = _interopRequireDefault(_nodemailersestransport);
+var _awssmtpcredentials = require('aws-smtp-credentials'); var _awssmtpcredentials2 = _interopRequireDefault(_awssmtpcredentials);
+
 var _path = require('path');
 var _mail = require('../config/mail'); var _mail2 = _interopRequireDefault(_mail);
 
@@ -10,12 +11,16 @@ class Mail {
     // const { host, port, auth } = mailConfig;
 
     // Connecting to an external mail service
-    this.transporter = _nodemailer2.default.createTransport(
-      _nodemailersestransport2.default.call(void 0, {
-        accessKeyId: process.env.MAIL_USER,
-        secretAccessKey: process.env.MAIL_PASS,
-      })
-    );
+    this.transporter = _nodemailer2.default.createTransport({
+      port: process.env.MAIL_PORT,
+      host: process.env.MAIL_HOST,
+      secure: true,
+      auth: {
+        user: process.env.AWS_IAM_USER_KEY,
+        pass: _awssmtpcredentials2.default.call(void 0, process.env.AWS_IAM_USER_SECRET),
+      },
+      debug: true,
+    });
 
     this.configureTemplates();
   }
@@ -41,17 +46,10 @@ class Mail {
   }
 
   sendMail(message) {
-    return this.transporter.sendMail(
-      {
-        ..._mail2.default.default,
-        ...message,
-      },
-      (err, info) => {
-        if (err) return console.log(err);
-
-        return console.log('info', info);
-      }
-    );
+    return this.transporter.sendMail({
+      ..._mail2.default.default,
+      ...message,
+    });
   }
 }
 
