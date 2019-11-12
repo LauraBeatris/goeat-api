@@ -52,9 +52,7 @@ class RestaurantController {
           'city_address',
           'description',
         ],
-        include: [
-          { model: File, as: 'avatar', attributes: ['path', 'name', 'url'] },
-        ],
+        include: [{ model: File, as: 'avatar', attributes: ['name', 'url'] }],
       });
     } else {
       // Returning the restaurants owned by the provider
