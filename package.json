@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "NODE_ENV=development nodemon src/server.js",
-    "start": "NODE_ENV=production nodemon src/server.js",
+    "start": "NODE_ENV=production node ./build/server.js & node ./build/queue.js ",
     "queue-dev": "NODE_ENV=development nodemon src/queue.js",
     "queue": "NODE_ENV=production nodemon src/queue.js",
     "dev:debug": "nodemon --inspect src/server.js",
