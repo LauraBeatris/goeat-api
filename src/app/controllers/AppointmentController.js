@@ -94,6 +94,7 @@ class AppointmentController {
     }
 
     const { provider_id } = restaurant;
+
     /*
       Date verifications
     */
@@ -200,7 +201,7 @@ class AppointmentController {
       "'Day' dd 'of' MMMM',' H:mm 'Hours'"
     );
 
-    await Queue.add(CancellationMail.key, { appointment, formatedDate });
+    await Queue.create(CancellationMail.key, { appointment, formatedDate });
     return res.json(appointment);
   }
 }

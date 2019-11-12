@@ -24,6 +24,7 @@
     "express-handlebars": "^3.1.0",
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",
+    "kue": "^0.11.6",
     "mongoose": "^5.7.7",
     "multer": "^1.4.2",
     "multer-s3": "^2.9.0",
