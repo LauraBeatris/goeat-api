@@ -1,1 +1,1 @@
-web: node ./build/server.js & node ./build/queue.js 
+web: NODE_ENV=production node ./build/server.js & node ./build/queue.js
