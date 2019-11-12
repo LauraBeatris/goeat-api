@@ -2,6 +2,6 @@ const dotenv = require('dotenv');
 
 dotenv.config({});
 
-export default {
+module.exports = {
   dsn: process.env.SENTRY_URL,
 };
