@@ -1,14 +1,13 @@
-import Sequelize from 'sequelize';
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-import databaseConfig from '../config/database';
-
-import User from '../app/models/User';
-import Restaurant from '../app/models/Restaurant';
-import Provider from '../app/models/Provider';
-import File from '../app/models/File';
-import Appointment from '../app/models/Appointment';
-import Foods from '../app/models/Food';
+const Sequelize = require('sequelize');
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+const User = require('../app/models/User');
+const Restaurant = require('../app/models/Restaurant');
+const Provider = require('../app/models/Provider');
+const File = require('../app/models/File');
+const Appointment = require('../app/models/Appointment');
+const Foods = require('../app/models/Food');
+const databaseConfig = require('../config/database');
 
 dotenv.config({
   path: process.env.NODE_ENV === 'development' ? '.env.development' : '.env',
@@ -45,4 +44,4 @@ class Database {
   }
 }
 
-export default new Database();
+module.exports = new Database();

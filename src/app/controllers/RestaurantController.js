@@ -1,7 +1,7 @@
-import Joi from 'joi';
-import Restaurant from '../models/Restaurant';
-import Provider from '../models/Provider';
-import File from '../models/File';
+const Joi = require('joi');
+const Restaurant = require('../models/Restaurant');
+const Provider = require('../models/Provider');
+const File = require('../models/File');
 
 class RestaurantController {
   async index(req, res) {
@@ -124,4 +124,4 @@ class RestaurantController {
   }
 }
 
-export default new RestaurantController();
+module.exports = new RestaurantController();

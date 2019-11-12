@@ -1,4 +1,4 @@
-import File from '../models/File';
+const File = require('../models/File');
 
 class FileController {
   async store(req, res) {
@@ -55,4 +55,4 @@ class FileController {
   }
 }
 
-export default new FileController();
+module.exports = new FileController();

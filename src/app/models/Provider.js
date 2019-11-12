@@ -1,5 +1,6 @@
-import Sequelize, { Model } from 'sequelize';
-import bcrypt from 'bcryptjs';
+const Sequelize = require('sequelize');
+const { Model } = require('sequelize');
+const bcrypt = require('bcryptjs');
 
 class Provider extends Model {
   static init(sequelize) {
@@ -35,4 +36,4 @@ class Provider extends Model {
   }
 }
 
-export default Provider;
+module.exports = Provider;

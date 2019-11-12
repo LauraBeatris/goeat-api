@@ -1,13 +1,13 @@
-import express from 'express';
-import dotenv from 'dotenv';
-import { resolve } from 'path';
-import * as Sentry from '@sentry/node';
-import Youch from 'youch';
-import 'express-async-errors';
-import routes from './routes';
-import sentryConfig from './config/sentry';
+const express = require('express');
+const dotenv = require('dotenv');
+const { resolve } = require('path');
+const Sentry = require('@sentry/node');
+const Youch = require('youch');
+require('express-async-errors');
+const routes = require('./routes');
+const sentryConfig = require('./config/sentry');
 
-import './database';
+require('./database');
 
 dotenv.config({
   path: process.env.NODE_ENV === 'development' ? '.env.development' : '.env',
@@ -63,4 +63,4 @@ class App {
   }
 }
 
-export default new App().server;
+module.exports = new App().server;

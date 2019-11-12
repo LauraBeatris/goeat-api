@@ -1,10 +1,8 @@
-import dotenv from 'dotenv';
+const dotenv = require('dotenv');
 
 dotenv.config({});
 
-const redisConfig = {
+module.exports = {
   host: process.env.REDIS_HOST || '127.0.0.1',
   port: process.env.REDIS_PORT || 6379,
 };
-
-export default redisConfig;

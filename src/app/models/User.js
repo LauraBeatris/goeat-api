@@ -1,5 +1,6 @@
-import Sequelize, { Model } from 'sequelize';
-import bcrypt from 'bcryptjs';
+const bcrypt = require('bcryptjs');
+const Sequelize = require('sequelize');
+const { Model } = require('sequelize');
 
 class User extends Model {
   static init(sequelize) {
@@ -33,5 +34,4 @@ class User extends Model {
     return bcrypt.compare(password, this.password_hash);
   }
 }
-
-export default User;
+module.exports = User;

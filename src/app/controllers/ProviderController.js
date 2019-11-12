@@ -1,6 +1,6 @@
-import Joi from 'joi';
-import Provider from '../models/Provider';
-import File from '../models/File';
+const Joi = require('joi');
+const File = require('../models/File');
+const Provider = require('../models/Provider');
 
 class ProviderController {
   async store(req, res) {
@@ -48,4 +48,4 @@ class ProviderController {
   }
 }
 
-export default new ProviderController();
+module.exports = new ProviderController();

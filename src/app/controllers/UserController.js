@@ -1,6 +1,6 @@
-import Joi from 'joi';
-import * as Yup from 'yup';
-import User from '../models/User';
+const Joi = require('joi');
+const Yup = require('yup');
+const User = require('../models/User');
 
 // TO DO - Use Joi for validation
 class UserController {
@@ -86,5 +86,4 @@ class UserController {
     return res.json({ id, name, email });
   }
 }
-
-export default new UserController();
+module.exports = new UserController();

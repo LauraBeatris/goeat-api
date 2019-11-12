@@ -1,10 +1,9 @@
-import { startOfDay, endOfDay, parseISO } from 'date-fns';
-import { Op } from 'sequelize';
-
-import Appointment from '../models/Appointment';
-import Restaurant from '../models/Restaurant';
-import User from '../models/User';
-import File from '../models/File';
+const { startOfDay, endOfDay, parseISO } = require('date-fns');
+const { Op } = require('sequelize');
+const File = require('../models/File');
+const Appointment = require('../models/Appointment');
+const Restaurant = require('../models/Restaurant');
+const User = require('../models/User');
 
 class ScheduleController {
   async index(req, res) {
@@ -73,4 +72,4 @@ class ScheduleController {
   }
 }
 
-export default new ScheduleController();
+module.exports = new ScheduleController();

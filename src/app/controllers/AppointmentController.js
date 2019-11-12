@@ -1,22 +1,22 @@
-import Joi from 'joi';
-import {
+const Joi = require('joi');
+const {
   parseISO,
   isBefore,
   endOfDay,
   startOfDay,
   format,
   subHours,
-} from 'date-fns';
-import { Op } from 'sequelize';
+} = require('date-fns');
+const { Op } = require('sequelize');
+const Queue = require('../../lib/Queue');
 
-import Queue from '../../lib/Queue';
-import CancellationMail from '../jobs/CancellationMail';
-import Appointment from '../models/Appointment';
-import Restaurant from '../models/Restaurant';
-import User from '../models/User';
-import Provider from '../models/Provider';
-import File from '../models/File';
-import Notification from '../schemas/Notification';
+const CancellationMail = require('../jobs/CancellationMail');
+const Appointment = require('../models/Appointment');
+const Restaurant = require('../models/Restaurant');
+const User = require('../models/User');
+const Provider = require('../models/Provider');
+const File = require('../models/File');
+const Notification = require('../schemas/Notification');
 
 class AppointmentController {
   async index(req, res) {
@@ -209,4 +209,4 @@ class AppointmentController {
   }
 }
 
-export default new AppointmentController();
+module.exports = new AppointmentController();

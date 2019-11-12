@@ -1,5 +1,6 @@
-import Sequelize, { Model } from 'sequelize';
-import { isBefore, subHours } from 'date-fns';
+const Sequelize = require('sequelize');
+const { Model } = require('sequelize');
+const { isBefore, subHours } = require('date-fns');
 
 class Appointment extends Model {
   static init(sequelize) {
@@ -39,4 +40,4 @@ class Appointment extends Model {
   }
 }
 
-export default Appointment;
+module.exports = Appointment;

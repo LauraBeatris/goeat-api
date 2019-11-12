@@ -1,4 +1,4 @@
-import Restaurant from '../models/Restaurant';
+const Restaurant = require('../models/Restaurant');
 
 class DashboardController {
   // Opening the the choosed restaurant - Provider screen
@@ -32,4 +32,4 @@ class DashboardController {
   }
 }
 
-export default new DashboardController();
+module.exports = new DashboardController();

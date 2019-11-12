@@ -1,16 +1,13 @@
-import AWS from 'aws-sdk';
+const AWS = require('aws-sdk');
 
-import dotenv from 'dotenv';
+const dotenv = require('dotenv');
 
 dotenv.config({
   path: process.env.NODE_ENV === 'development' ? '.env.development' : '.env',
 });
 
-const bucket = new AWS.S3({
+module.exports = new AWS.S3({
   accessKeyId: process.env.AWS_IAM_USER_KEY,
   secretAccessKey: process.env.AWS_IAM_USER_SECRET,
   Bucket: process.env.AWS_BUCKET_NAME,
 });
-
-// Creating S3 Config
-export default bucket;

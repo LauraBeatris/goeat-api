@@ -1,19 +1,19 @@
-import { Router } from 'express';
+const { Router } = require('express');
 
-import multerUpload from './config/multer';
+const multerUpload = require('./config/multer');
 
-import UserController from './app/controllers/UserController';
-import ProviderController from './app/controllers/ProviderController';
-import SessionController from './app/controllers/SessionController';
-import FileController from './app/controllers/FileController';
-import RestaurantController from './app/controllers/RestaurantController';
-import FoodController from './app/controllers/FoodController';
-import AppointmentController from './app/controllers/AppointmentController';
-import ScheduleController from './app/controllers/ScheduleController';
-import NotificationsController from './app/controllers/NotificationsController';
-import DashboardController from './app/controllers/DashboardController';
+const UserController = require('./app/controllers/UserController');
+const ProviderController = require('./app/controllers/ProviderController');
+const SessionController = require('./app/controllers/SessionController');
+const FileController = require('./app/controllers/FileController');
+const RestaurantController = require('./app/controllers/RestaurantController');
+const FoodController = require('./app/controllers/FoodController');
+const AppointmentController = require('./app/controllers/AppointmentController');
+const ScheduleController = require('./app/controllers/ScheduleController');
+const NotificationsController = require('./app/controllers/NotificationsController');
+const DashboardController = require('./app/controllers/DashboardController');
 
-import AuthMiddleware from './app/middlewares/auth';
+const AuthMiddleware = require('./app/middlewares/auth');
 
 const routes = new Router();
 
@@ -53,4 +53,4 @@ routes.put('/notifications/:notification_id', NotificationsController.update);
 routes.post('/dashboard/open/:restaurant_id', DashboardController.store);
 routes.delete('/dashboard/close/:restaurant_id', DashboardController.delete);
 
-export default routes;
+module.exports = routes;

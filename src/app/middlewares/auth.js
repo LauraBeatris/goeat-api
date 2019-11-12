@@ -1,7 +1,7 @@
-import jwt from 'jsonwebtoken';
-import { promisify } from 'util';
+const jwt = require('jsonwebtoken');
+const { promisify } = require('util');
 
-export default async (req, res, next) => {
+async function authMiddleware(req, res, next) {
   const authHeader = req.headers.authorization;
 
   // Verifying if the token is in the auth header or else, the user isn't allowed to proceed
@@ -23,4 +23,6 @@ export default async (req, res, next) => {
   } catch (err) {
     return res.status(404).json({ error: 'Invalid token' });
   }
-};
+}
+
+module.exports = authMiddleware;

@@ -1,10 +1,10 @@
-import multer from 'multer';
-import dotenv from 'dotenv';
+const multer = require('multer');
+const dotenv = require('dotenv');
 
-import multerS3 from 'multer-s3';
-import path from 'path';
+const multerS3 = require('multer-s3');
+const path = require('path');
 
-import s3Config from './s3';
+const s3Config = require('./s3');
 
 dotenv.config({
   path: process.env.NODE_ENV === 'development' ? '.env.development' : '.env',
@@ -38,7 +38,7 @@ const multerS3Config = multer({
 }).single('file');
 
 // Multer Middleware - Sending S3 Object URL or error
-export default (req, res, next) => {
+module.exports = (req, res, next) => {
   multerS3Config(req, res, error => {
     console.log('File successfully sent', req.file);
     console.log('error', error);

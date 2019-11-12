@@ -1,19 +1,20 @@
-import jwt from 'jsonwebtoken';
-import * as Yup from 'yup';
-
-import User from '../models/User';
-import Provider from '../models/Provider';
+const jwt = require('jsonwebtoken');
+const Joi = require('joi');
+const User = require('../models/User');
+const Provider = require('../models/Provider');
 
 class SessionController {
   async store(req, res) {
-    const schema = Yup.object().shape({
-      email: Yup.string().required(),
-      password: Yup.string().required(),
+    const schema = Joi.object().keys({
+      email: Joi.string().required(),
+      password: Joi.string().required(),
     });
 
-    if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation fails' });
-    }
+    Joi.validate(req.body, schema, err => {
+      if (err) {
+        return res.status(422).json({ err: err.details });
+      }
+    });
 
     const { email, password } = req.body;
 
@@ -53,4 +54,4 @@ class SessionController {
   }
 }
 
-export default new SessionController();
+module.exports = new SessionController();

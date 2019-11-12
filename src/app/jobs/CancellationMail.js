@@ -1,4 +1,4 @@
-import Mail from '../../lib/Mail';
+const Mail = require('../../lib/Mail');
 
 class CancellationMail {
   // Unique Key
@@ -28,4 +28,4 @@ class CancellationMail {
   }
 }
 
-export default new CancellationMail();
+module.exports = new CancellationMail();

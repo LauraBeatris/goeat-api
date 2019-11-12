@@ -1,6 +1,6 @@
-import Joi from 'joi';
-import Restaurant from '../models/Restaurant';
-import Food from '../models/Food';
+const Joi = require('joi');
+const Restaurant = require('../models/Restaurant');
+const Food = require('../models/Food');
 
 class FoodController {
   // Listing all the foods of the restaurant
@@ -77,4 +77,4 @@ class FoodController {
   }
 }
 
-export default new FoodController();
+module.exports = new FoodController();

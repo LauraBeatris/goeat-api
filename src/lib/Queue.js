@@ -1,8 +1,8 @@
-import kue from 'kue';
-import Sentry from '@sentry/node';
-import redisConfig from '../config/redis';
+const kue = require('kue');
+const Sentry = require('@sentry/node');
+const redisConfig = require('../config/redis');
 
-import CancellationMail from '../app/jobs/CancellationMail';
+const CancellationMail = require('../app/jobs/CancellationMail');
 
 const jobs = [CancellationMail];
 
@@ -26,4 +26,4 @@ class Queue {
   }
 }
 
-export default new Queue();
+module.exports = new Queue();

@@ -1,5 +1,5 @@
-import Notification from '../schemas/Notification';
-import Provider from '../models/Provider';
+const Notification = require('../schemas/Notification');
+const Provider = require('../models/Provider');
 
 class NotificationController {
   async index(req, res) {
@@ -44,5 +44,4 @@ class NotificationController {
     return res.json(notification);
   }
 }
-
-export default new NotificationController();
+module.exports = new NotificationController();
