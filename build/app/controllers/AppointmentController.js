@@ -11,7 +11,7 @@ var _sequelize = require('sequelize');
 
 var _Queue = require('../../lib/Queue'); var _Queue2 = _interopRequireDefault(_Queue);
 var _CancellationMail = require('../jobs/CancellationMail'); var _CancellationMail2 = _interopRequireDefault(_CancellationMail);
-
+var _Mail = require('../../lib/Mail'); var _Mail2 = _interopRequireDefault(_Mail);
 var _Appointment = require('../models/Appointment'); var _Appointment2 = _interopRequireDefault(_Appointment);
 var _Restaurant = require('../models/Restaurant'); var _Restaurant2 = _interopRequireDefault(_Restaurant);
 var _User = require('../models/User'); var _User2 = _interopRequireDefault(_User);
@@ -147,9 +147,25 @@ class AppointmentController {
       });
     }
 
-    console.log('hey');
-
-    const appointment = await _Appointment2.default.findByPk(appointment_id);
+    const appointment = await _Appointment2.default.findOne({
+      where: { id: appointment_id },
+      include: [
+        {
+          model: _Restaurant2.default,
+          as: 'restaurant',
+          include: [
+            {
+              model: _Provider2.default,
+              as: 'restaurant',
+            },
+          ],
+        },
+        {
+          model: _User2.default,
+          as: 'user',
+        },
+      ],
+    });
     if (!appointment) {
       return res.status(404).json({ error: 'Appointment not found' });
     }
