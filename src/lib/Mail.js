@@ -1,8 +1,7 @@
 import nodemailer from 'nodemailer';
 import exphbs from 'express-handlebars';
 import nodemailerhbs from 'nodemailer-express-handlebars';
-import smtpPassword from 'aws-smtp-credentials';
-
+import sesTransport from 'nodemailer-ses-transport';
 import { resolve } from 'path';
 import mailConfig from '../config/mail';
 
@@ -11,16 +10,12 @@ class Mail {
     // const { host, port, auth } = mailConfig;
 
     // Connecting to an external mail service
-    this.transporter = nodemailer.createTransport({
-      port: process.env.MAIL_HOST,
-      host: process.env.MAIL_PORT,
-      secure: true,
-      auth: {
-        user: process.env.AWS_IAM_USER_KEY,
-        pass: smtpPassword(process.env.AWS_IAM_USER_SECRET),
-      },
-      debug: true,
-    });
+    this.transporter = nodemailer.createTransport(
+      sesTransport({
+        accessKeyId: process.env.MAIL_USER,
+        secretAccessKey: process.env.MAIL_PASS,
+      })
+    );
 
     this.configureTemplates();
   }
@@ -46,10 +41,17 @@ class Mail {
   }
 
   sendMail(message) {
-    return this.transporter.sendMail({
-      ...mailConfig.default,
-      ...message,
-    });
+    return this.transporter.sendMail(
+      {
+        ...mailConfig.default,
+        ...message,
+      },
+      (err, info) => {
+        if (err) return console.log(err);
+
+        return console.log(info);
+      }
+    );
   }
 }
 

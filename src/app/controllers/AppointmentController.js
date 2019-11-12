@@ -11,7 +11,7 @@ import { Op } from 'sequelize';
 
 import Queue from '../../lib/Queue';
 import CancellationMail from '../jobs/CancellationMail';
-
+import Mail from '../../lib/Mail';
 import Appointment from '../models/Appointment';
 import Restaurant from '../models/Restaurant';
 import User from '../models/User';
@@ -147,9 +147,25 @@ class AppointmentController {
       });
     }
 
-    console.log('hey');
-
-    const appointment = await Appointment.findByPk(appointment_id);
+    const appointment = await Appointment.findOne({
+      where: { id: appointment_id },
+      include: [
+        {
+          model: Restaurant,
+          as: 'restaurant',
+          include: [
+            {
+              model: Provider,
+              as: 'restaurant',
+            },
+          ],
+        },
+        {
+          model: User,
+          as: 'user',
+        },
+      ],
+    });
     if (!appointment) {
       return res.status(404).json({ error: 'Appointment not found' });
     }
