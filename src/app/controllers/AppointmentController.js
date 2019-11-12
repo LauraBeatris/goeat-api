@@ -60,7 +60,7 @@ class AppointmentController {
             {
               model: File,
               as: 'avatar',
-              attributes: ['id', 'path', 'url'],
+              attributes: ['id', 'url'],
             },
           ],
         },
