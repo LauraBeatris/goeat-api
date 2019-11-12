@@ -11,7 +11,6 @@ import { Op } from 'sequelize';
 
 import Queue from '../../lib/Queue';
 import CancellationMail from '../jobs/CancellationMail';
-import Mail from '../../lib/Mail';
 import Appointment from '../models/Appointment';
 import Restaurant from '../models/Restaurant';
 import User from '../models/User';
