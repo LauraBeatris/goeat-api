@@ -2,9 +2,7 @@ const AWS = require('aws-sdk');
 
 const dotenv = require('dotenv');
 
-dotenv.config({
-  path: process.env.NODE_ENV === 'development' ? '.env.development' : '.env',
-});
+dotenv.config({});
 
 module.exports = new AWS.S3({
   accessKeyId: process.env.AWS_IAM_USER_KEY,

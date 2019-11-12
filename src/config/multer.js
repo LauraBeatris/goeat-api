@@ -6,9 +6,7 @@ const path = require('path');
 
 const s3Config = require('./s3');
 
-dotenv.config({
-  path: process.env.NODE_ENV === 'development' ? '.env.development' : '.env',
-});
+dotenv.config({});
 
 // Setting multer with s3
 const multerS3Config = multer({

@@ -1,8 +1,6 @@
 const dotenv = require('dotenv');
 
-dotenv.config({
-  path: process.env.NODE_ENV === 'test' ? '.env.testing' : '.env',
-});
+dotenv.config({});
 
 module.exports = {
   host: process.env.MAIL_HOST,
