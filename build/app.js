@@ -1,21 +1,50 @@
-"use strict"; function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { newObj[key] = obj[key]; } } } newObj.default = obj; return newObj; } } function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }Object.defineProperty(exports, "__esModule", {value: true});var _express = require('express'); var _express2 = _interopRequireDefault(_express);
-var _dotenv = require('dotenv'); var _dotenv2 = _interopRequireDefault(_dotenv);
-var _path = require('path');
-var _node = require('@sentry/node'); var Sentry = _interopRequireWildcard(_node);
-var _youch = require('youch'); var _youch2 = _interopRequireDefault(_youch);
+function _interopRequireWildcard(obj) {
+  if (obj && obj.__esModule) {
+    return obj;
+  }
+  var newObj = {};
+  if (obj != null) {
+    for (var key in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, key)) {
+        newObj[key] = obj[key];
+      }
+    }
+  }
+  newObj.default = obj;
+  return newObj;
+}
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
+Object.defineProperty(exports, '__esModule', { value: true });
+const _express = require('express');
+
+const _express2 = _interopRequireDefault(_express);
+const _dotenv = require('dotenv');
+
+const _dotenv2 = _interopRequireDefault(_dotenv);
+const _path = require('path');
+const _node = require('@sentry/node');
+
+const Sentry = _interopRequireWildcard(_node);
+const _youch = require('youch');
+
+const _youch2 = _interopRequireDefault(_youch);
 require('express-async-errors');
-var _routes = require('./routes'); var _routes2 = _interopRequireDefault(_routes);
-var _sentry = require('./config/sentry'); var _sentry2 = _interopRequireDefault(_sentry);
+const _routes = require('./routes');
+
+const _routes2 = _interopRequireDefault(_routes);
+const _sentry = require('./config/sentry');
+
+const _sentry2 = _interopRequireDefault(_sentry);
 
 require('./database');
 
-_dotenv2.default.config({
-  path: process.env.NODE_ENV === 'development' ? '.env.development' : '.env',
-});
+_dotenv2.default.config({});
 
 class App {
   constructor() {
-    this.server = _express2.default.call(void 0, );
+    this.server = _express2.default.call(void 0);
     this.isDev = process.env.NODE_ENV !== 'production';
 
     // Initializing Sentry
@@ -36,7 +65,9 @@ class App {
     // Ready to access static files
     this.server.use(
       '/files',
-      _express2.default.static(_path.resolve.call(void 0, __dirname, '..', 'tmp', 'uploads'))
+      _express2.default.static(
+        _path.resolve.call(void 0, __dirname, '..', 'tmp', 'uploads')
+      )
     );
   }
 
@@ -63,4 +94,4 @@ class App {
   }
 }
 
-exports. default = new App().server;
+exports.default = new App().server;
