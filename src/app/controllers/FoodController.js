@@ -43,6 +43,7 @@ class FoodController {
       price: Joi.number().required(),
       file_id: Joi.number().required(),
       type: Joi.string().required(),
+      description: Joi.string().required(),
     });
 
     Joi.validate(req.body, schema, err => {
@@ -67,6 +68,19 @@ class FoodController {
         err: 'Restaurant not found',
       });
     }
+
+    // Verifying the the restaurant already have this food
+    const existingFood = await Food.findOne({
+      where: {
+        restaurant_id,
+        name: req.body.name,
+      },
+    });
+
+    if (existingFood)
+      return res
+        .status(400)
+        .json({ err: 'This restaurant already have that food registed' });
 
     // Creating the food
     const food = await Food.create(req.body);
