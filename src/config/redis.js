@@ -1,8 +1,6 @@
 import dotenv from 'dotenv';
 
-dotenv.config({
-  path: process.env.NODE_ENV === 'development' ? '.env.development' : '.env',
-});
+dotenv.config({});
 
 const redisConfig = {
   host: process.env.REDIS_HOST || '127.0.0.1',
