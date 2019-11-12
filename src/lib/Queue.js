@@ -19,6 +19,7 @@ class Queue {
   processQueue() {
     jobs.forEach(job => this.queue.process(job.key, job.handle));
 
+    // Verifying if sentry is in the app
     if (Sentry) {
       this.queue.on('error', Sentry.captureException);
     }
