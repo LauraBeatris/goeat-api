@@ -69,7 +69,7 @@ To start the application
   yarn start
   
 ```
-To run the queue 
+To run the queue for the mail job
 ```
   // Development mode - .env.development
   yarn queue-dev
