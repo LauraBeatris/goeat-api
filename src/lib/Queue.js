@@ -1,29 +1,9 @@
 const kue = require('kue');
-const Sentry = require('@sentry/node');
 const redisConfig = require('../config/redis');
-
 const CancellationMail = require('../app/jobs/CancellationMail');
 
-const jobs = [CancellationMail];
+const Queue = kue.createQueue({ redis: redisConfig });
 
-class Queue {
-  constructor() {
-    // Creating queue instance
-    this.queue = kue.createQueue({ redis: redisConfig });
+Queue.process(CancellationMail.key, CancellationMail.handle);
 
-    // Starting queues
-    this.processQueue();
-  }
-
-  // Processing each queue passing the unique key and the handle of the job
-  processQueue() {
-    jobs.forEach(job => this.queue.process(job.key, job.handle));
-
-    // Verifying if sentry is in the app
-    if (Sentry) {
-      this.queue.on('error', Sentry.captureException);
-    }
-  }
-}
-
-module.exports = new Queue();
+module.exports = Queue;
