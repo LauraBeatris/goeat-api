@@ -1,6 +1,7 @@
 const Joi = require('joi');
 const Yup = require('yup');
 const User = require('../models/User');
+const File = require('../models/File');
 
 // TO DO - Use Joi for validation
 class UserController {
@@ -23,6 +24,8 @@ class UserController {
       }
     });
 
+    const { name, email, password, file_id } = req.body;
+
     // Verifying if there's another user with the same email
     const userExists = await User.findOne({ where: { email: req.body.email } });
 
@@ -30,8 +33,24 @@ class UserController {
       return res.status(404).json({ error: 'User already exists.' });
     }
 
+    const fileExists = await File.findByPk(req.bodyfile_id);
+
+    if (!fileExists && file_id) {
+      return res
+        .status(404)
+        .json({ error: `File with id ${file_id} not exists` });
+    }
+
+    const fields = {
+      name,
+      email,
+      password,
+    };
+
+    if (file_id) fields.file_id = file_id;
+
     // Creating the user
-    const { id, name, email, file_id } = await User.create(req.body);
+    const { id } = await User.create(...fields);
     return res.json({ id, name, email, file_id });
   }
 

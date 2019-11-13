@@ -7,14 +7,10 @@ class CancellationMail {
   }
 
   // Run this for each task of the job
-  async handle({ appointment, formatedDate }, done) {
-    console.log('handle');
-    console.log('handle');
-    console.log('handle');
-    console.log(appointment.restaurant.restaurant.name);
-    console.log(appointment.restaurant.restaurant.email);
+  async handle({ data }) {
+    const { appointment, formatedDate } = data;
     await Mail.sendMail({
-      to: `${appointment.restaurant.restaurant.name} <${appointment.restaurant.restaurant.email}>`,
+      to: `<${appointment.restaurant.restaurant.email}>`,
       subject: 'Cancelled appointment',
       template: 'cancellation',
       context: {
@@ -24,8 +20,6 @@ class CancellationMail {
         date: formatedDate,
       },
     });
-
-    return done();
   }
 }
 

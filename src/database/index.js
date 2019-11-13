@@ -9,9 +9,7 @@ const Appointment = require('../app/models/Appointment');
 const Foods = require('../app/models/Food');
 const databaseConfig = require('../config/database');
 
-dotenv.config({
-  path: process.env.NODE_ENV === 'development' ? '.env.development' : '.env',
-});
+dotenv.config({});
 
 const models = [User, Restaurant, Provider, File, Appointment, Foods];
 

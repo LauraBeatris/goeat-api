@@ -3,7 +3,6 @@ version: '3.3'
 services:
   db:
     image: mysql:5.7
-    container_name: goeat-mysql
     restart: always
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
@@ -14,19 +13,8 @@ services:
         - '3306:3306'
     expose:
         - '3306'
-  mongo:
-    image: mongo:latest
-    container_name: goeat-mongo
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
-    ports:
-      - "27017:27017"
-    expose: 
-      - '27017'
   redis:
     image: redis:alpine
-    container_name: goeat-redis
     command: redis-server 
     ports:
       - "6379:6379"

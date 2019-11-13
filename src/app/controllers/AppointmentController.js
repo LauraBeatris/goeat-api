@@ -203,13 +203,10 @@ class AppointmentController {
       "'Day' dd 'of' MMMM',' H:mm 'Hours'"
     );
 
-    console.log('chamando o job', CancellationMail.key);
-    const job = Queue.create(CancellationMail.key, {
+    await Queue.add(CancellationMail.key, {
       appointment,
       formatedDate,
-    }).save();
-
-    console.log(job);
+    });
 
     return res.json(appointment);
   }
