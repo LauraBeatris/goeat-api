@@ -1,25 +1,30 @@
+const dotenv = require('dotenv');
 const nodemailer = require('nodemailer');
-const exphbs = require('express-handlebars');
-const nodemailerhbs = require('nodemailer-express-handlebars');
-const sesTransport = require('nodemailer-ses-transport');
 const { resolve } = require('path');
+const nodemailerhbs = require('nodemailer-express-handlebars');
+const exphbs = require('express-handlebars');
 const mailConfig = require('../config/mail');
+
+dotenv.config({
+  path: process.env.NODE_ENV !== 'production' ? '.env.development' : '.env',
+});
 
 class Mail {
   constructor() {
-    // const { host, port, auth } = mailConfig;
-
-    // Connecting to an external mail service
-    this.transporter = nodemailer.createTransport(
-      sesTransport({
-        accessKeyId: process.env.MAIL_USER,
-        secretAccessKey: process.env.MAIL_PASS,
-      })
-    );
+    this.transporter = nodemailer.createTransport({
+      host: process.env.MAIL_HOST,
+      port: 465,
+      secure: true, // upgrade later with STARTTLS
+      auth: {
+        user: process.env.MAIL_USER,
+        pass: process.env.MAIL_PASS,
+      },
+    });
 
     this.configureTemplates();
   }
 
+  // TO DO
   configureTemplates() {
     const viewPath = resolve(__dirname, '..', 'app', 'views', 'emails');
 
@@ -40,15 +45,15 @@ class Mail {
     );
   }
 
-  sendMail(message) {
-    console.log('message', message);
+  // Message object -> All the data expected from the template
+  sendEmail(message) {
     return this.transporter.sendMail(
       {
         ...mailConfig.default,
         ...message,
       },
       (err, info) => {
-        if (err) return console.log(err);
+        if (err) return console.log('err', err);
 
         return console.log('info', info);
       }

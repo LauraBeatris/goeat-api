@@ -33,7 +33,7 @@ class UserController {
       return res.status(404).json({ error: 'User already exists.' });
     }
 
-    const fileExists = await File.findByPk(req.bodyfile_id);
+    const fileExists = await File.findByPk(req.body.file_id);
 
     if (!fileExists && file_id) {
       return res
@@ -50,7 +50,7 @@ class UserController {
     if (file_id) fields.file_id = file_id;
 
     // Creating the user
-    const { id } = await User.create(...fields);
+    const { id } = await User.create({ ...fields });
     return res.json({ id, name, email, file_id });
   }
 
