@@ -38,7 +38,7 @@ The user has access of the open restaurants and is able to search for establishm
 Fast and clean application for providers and users who want to enjoy a good delivery food service
 
 ## :checkered_flag: Installation 
-First, you need to install docker and docker-compose on your machine and create a .env similar
+First, you need to install docker and docker-compose on your machine in order to use the services. Create a .env similar
 to the .env.example in the files above. 
 <br>
 To run the containers 
@@ -69,7 +69,7 @@ To start the application
   yarn start
   
 ```
-To run the queue 
+To run the queue for the mail job
 ```
   // Development mode - .env.development
   yarn queue-dev
