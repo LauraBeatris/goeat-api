@@ -1,6 +1,6 @@
 const app = require('./app');
 
-app.listen(process.env.PORT, '0.0.0.0');
+app.listen(process.env.PORT);
 
 /*
   Creating the server in two files.
