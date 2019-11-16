@@ -5,9 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "NODE_ENV=development nodemon src/server.js",
-    "start": "NODE_ENV=production nodemon src/server.js",
-    "queue-dev": "NODE_ENV=development nodemon src/queue.js",
-    "queue": "NODE_ENV=production nodemon src/queue.js",
+    "start": "node src/server.js",
+    "queue": "nodemon src/queue.js",
     "dev:debug": "nodemon --inspect src/server.js",
     "linting-all": "yarn eslint --fix src --ext js"
   },
@@ -33,6 +32,8 @@
     "nodemailer": "^6.3.1",
     "nodemailer-express-handlebars": "^3.1.0",
     "nodemailer-ses-transport": "^1.5.1",
+    "pg": "^7.12.1",
+    "pg-hstore": "^2.3.3",
     "prettier": "^1.18.2",
     "redis": "^2.8.0",
     "sequelize": "^5.21.1",
