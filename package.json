@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "NODE_ENV=development nodemon src/server.js",
     "start": "node src/server.js",
-    "queue": "nodemon src/queue.js",
+    "queue-dev": "nodemon src/queue.js",
+    "queue": "node src/queue.js",
     "dev:debug": "nodemon --inspect src/server.js",
     "linting-all": "yarn eslint --fix src --ext js"
   },
