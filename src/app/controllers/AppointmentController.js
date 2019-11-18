@@ -119,17 +119,23 @@ class AppointmentController {
     */
 
     // Getting name of the user
-    const { name: userName } = await User.findByPk(req.userId);
+    const user = await User.findByPk(req.userId);
+
+    if (!user) return res.status(404).json({ err: 'User not found' });
+    const { name: userName } = user;
     const { name: restaurantName } = restaurant;
+
     const formattedDate = format(
       parseISO(date),
       "'day' dd 'of' MMMM',' H:mm 'hours'"
     );
+
     const appointment = await Appointment.create({
       date,
       user_id: req.userId,
       restaurant_id,
     });
+
     await Notification.create({
       content: `New appointment - ${restaurantName} - by ${userName} for ${formattedDate}`,
       user: provider_id,

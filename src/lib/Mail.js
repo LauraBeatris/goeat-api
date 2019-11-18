@@ -5,9 +5,7 @@ const nodemailerhbs = require('nodemailer-express-handlebars');
 const exphbs = require('express-handlebars');
 const mailConfig = require('../config/mail');
 
-dotenv.config({
-  path: process.env.NODE_ENV !== 'production' ? '.env.development' : '.env',
-});
+dotenv.config({});
 
 class Mail {
   constructor() {
