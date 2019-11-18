@@ -9,6 +9,8 @@ services:
         - redis-net
       volumes:
         - redis-data:/data
+       ports:
+        - "5432:5432"
     db:
       image: postgres
       environment:
