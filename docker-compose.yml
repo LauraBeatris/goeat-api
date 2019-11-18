@@ -17,4 +17,6 @@ services:
         - "5432:5432"
 volumes:
   redis-data:
+networks:
+  redis-net:
 
