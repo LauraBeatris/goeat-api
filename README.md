@@ -83,7 +83,7 @@ To run the queue for the mail job
   yarn queue
 ```
 
-## :checkered_flag: Routes
+## :incoming_envelope: Routes
 - **User Resources**:
 
 - **Provider Resources**:
