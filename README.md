@@ -79,18 +79,22 @@ To run the queue for the mail job
 
 ## :checkered_flag: Routes
 - **User**:
-<ul>
-  <li> POST - Creating a user - `/users/` <br>
-       Payload: `{
+POST - Creating a user - ```/users/``` <br>
+       Payload: ```{
                     "name": "Laura Beatris Developer",
                     "email": "laurigdm@gmail.com",
                     "password": "123456",
                     "file_id": 1
-                  }` 
-  </li>
-  
-</ul>
-
+                  }``` 
+PUT - Updating a user - ```/users/```
+      The user needs to be authenticated so the id will be provided by the token passed in the authorization header. 
+      Payload: ``` {
+                    "name": "Laura",
+                    "email": "changed@gmail.com",
+                    "oldPassword": "123456",
+                    "password": "whatsupguys",
+                    "confirmPassword": "whatsupguys"
+                ```}
 
 
 ## :memo: Licence
