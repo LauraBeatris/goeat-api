@@ -86,27 +86,40 @@ To run the queue for the mail job
 
 ## :incoming_envelope: Routes
 - **User Resources**:
-
+  - **[<code>POST</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/users/user-post.md)**
+  - **[<code>PUT</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/users/user-put.md)**
+  
 - **Provider Resources**:
-
+  - **[<code>POST</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/providers/provider-post.md)**
+  - **[<code>PUT</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/providers/provider-put.md)**
+  
 - **Sessions Resources**:
+  - **[<code>POST</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/sessions/session-post.md)**
 
 - **Appointment Resources**:
-
+  - **[<code>POST</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/appointments/appointment-post.md)**
+  - **[<code>DELETE</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/appointments/appointment-delete.md)**
+  - **[<code>GET</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/appointments/appointment-get.md)**
+    
 - **Restaurant Resources**:
-
+  - **[<code>POST</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/restaurants/restaurant-create.md)**
+   - **[<code>GET</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/restaurants/restaurant-get.md)**
+   
 - **Files Resources**:
+  - **[<code>POST</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/files/files-post.md)**
+   - **[<code>GET - LISTING </code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/files/files-get.md)**
+   - **[<code>GET - SHOW </code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/files/files-show.md)**
 
 - **Dashboard Resources**:
-
-- **Available Resources**:
-
-- **Notifications Resources**:
+  - **[<code>POST</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/dashboard/dashboard-post.md)**
+  - **[<code>DELETE</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/dashboard/dashboard-delete.md)**
 
 - **Schedule Resources**:
+  - **[<code>GET</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/schedule/schedule-get.md)**
 
 - **Food Resources**:
-
+   - **[<code>POST</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/foods/foods-create.md)**
+   - **[<code>GET</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/foods/foods-get.md)**
 <hr>
 
 ## Status Codes
