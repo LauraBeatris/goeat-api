@@ -51,13 +51,13 @@ to the .env.example in the files above.
 To run the containers 
 
 ```
-sudo docker-compose up
+docker-compose up -d
 ```
 
 Check if the containers are running
 
 ```
-sudo docker ps
+docker ps
 ```
 
 <br>
