@@ -28,14 +28,20 @@
   <a href="#memo-licence">Licence</a>
 </p>
 
+<hr>
+
 ## :rocket: About the project
 GoEat is a food delivery application. There's two types of users - Provider or Customer. Providers can create restaurants and open then in any hours,
 updating the restaurants with new foods and getting notifications of new orders or cancelled orders. 
 
 The user has access of the open restaurants and is able to search for establishments in a specific region. 
 
+<hr>
+
 ## :ballot_box_with_check: Goals
 Fast and clean application for providers and users who want to enjoy a good delivery food service
+
+<hr>
 
 ## :checkered_flag: Installation 
 First, you need to install docker and docker-compose on your machine in order to use the services. Create a .env similar
@@ -79,6 +85,7 @@ To run the queue for the mail job
 
 ## :checkered_flag: Routes
 - **User**:
+<br>
 POST - Creating a user - ```/users/``` <br>
        Payload: ```{
                     "name": "Laura Beatris Developer",
@@ -86,6 +93,7 @@ POST - Creating a user - ```/users/``` <br>
                     "password": "123456",
                     "file_id": 1
                   }``` 
+<br>
 PUT - Updating a user - ```/users/```
       The user needs to be authenticated so the id will be provided by the token passed in the authorization header. 
       Payload: ``` {
@@ -95,7 +103,7 @@ PUT - Updating a user - ```/users/```
                     "password": "whatsupguys",
                     "confirmPassword": "whatsupguys"
                 ```}
-
+<hr>
 
 ## :memo: Licence
 
