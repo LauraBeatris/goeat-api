@@ -84,26 +84,41 @@ To run the queue for the mail job
 ```
 
 ## :checkered_flag: Routes
-- **User**:
-<br>
-POST - Creating a user - ```/users/``` <br>
-       Payload: ```{
-                    "name": "Laura Beatris Developer",
-                    "email": "laurigdm@gmail.com",
-                    "password": "123456",
-                    "file_id": 1
-                  }``` 
-<br>
-PUT - Updating a user - ```/users/```
-      The user needs to be authenticated so the id will be provided by the token passed in the authorization header. 
-      Payload: ``` {
-                    "name": "Laura",
-                    "email": "changed@gmail.com",
-                    "oldPassword": "123456",
-                    "password": "whatsupguys",
-                    "confirmPassword": "whatsupguys"
-                ```}
+- **User Resources**:
+
+- **Provider Resources**:
+
+- **Sessions Resources**:
+
+- **Appointment Resources**:
+
+- **Restaurant Resources**:
+
+- **Files Resources**:
+
+- **Dashboard Resources**:
+
+- **Available Resources**:
+
+- **Notifications Resources**:
+
+- **Schedule Resources**:
+
+- **Food Resources**:
+
 <hr>
+
+## Status Codes
+
+Goeat returns the following status codes in its API:
+
+| Status Code | Description |
+| :--- | :--- |
+| 200 | `OK` |
+| 201 | `CREATED` |
+| 400 | `BAD REQUEST` |
+| 404 | `NOT FOUND` |
+| 500 | `INTERNAL SERVER ERROR` |
 
 ## :memo: Licence
 
