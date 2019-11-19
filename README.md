@@ -14,7 +14,7 @@
     <img alt="Made by Laura Beatris" src="https://img.shields.io/badge/made%20by-laura%20beatris-yellow">
   </a>
 
-  <img alt="License" src="https://img.shields.io/badge/license-MIT-%2304D361">
+  <img alt="License" src="https://img.shields.io/badge/licence-MIT-yellow">
 
   <a href="https://github.com/LauraBeatris/goeat-api/stargazers">
     <img alt="Stargazers" src="https://img.shields.io/github/stars/LauraBeatris/goeat-api?style=social">
@@ -76,6 +76,21 @@ To run the queue for the mail job
   // Production mode - .env
   yarn queue
 ```
+
+## :checkered_flag: Routes
+- **User**:
+<ul>
+  <li> POST - Creating a user - `/users/` <br>
+       Payload: `{
+                    "name": "Laura Beatris Developer",
+                    "email": "laurigdm@gmail.com",
+                    "password": "123456",
+                    "file_id": 1
+                  }` 
+  </li>
+  
+</ul>
+
 
 
 ## :memo: Licence
