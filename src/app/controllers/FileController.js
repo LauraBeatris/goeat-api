@@ -7,7 +7,7 @@ class FileController {
 
     // Validating data
     if (!name || !url) {
-      return res.status(420).json({ error: 'Invalid data' });
+      return res.status(422).json({ error: 'Invalid data' });
     }
 
     // Checking if a file with that name already exists
@@ -33,7 +33,7 @@ class FileController {
 
     // Data validation
     if (!file_id) {
-      return res.status(401).json({ error: 'File id not provided' });
+      return res.status(400).json({ error: 'File id not provided' });
     }
 
     // Finding the file with the respective id

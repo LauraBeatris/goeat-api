@@ -30,7 +30,7 @@ class UserController {
     const userExists = await User.findOne({ where: { email: req.body.email } });
 
     if (userExists) {
-      return res.status(404).json({ error: 'User already exists.' });
+      return res.status(400).json({ error: 'User already exists.' });
     }
 
     const fileExists = await File.findByPk(req.body.file_id);
@@ -101,6 +101,7 @@ class UserController {
     }
 
     const { id, name, email } = await user.update(req.body);
+    await user.save();
 
     return res.json({ id, name, email });
   }

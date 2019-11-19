@@ -30,7 +30,7 @@ class SessionController {
     if (!user) {
       // Then, not allowed - 401
       return res
-        .status(401)
+        .status(404)
         .json({ error: `${isProvider ? 'Provider' : 'User'} not found` });
     }
 

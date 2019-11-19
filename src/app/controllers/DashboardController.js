@@ -6,7 +6,7 @@ class DashboardController {
     const { restaurant_id } = req.params;
 
     if (!restaurant_id) {
-      return res.status(401).json({ error: 'Restaurant id not provided' });
+      return res.status(400).json({ error: 'Restaurant id not provided' });
     }
 
     const restaurant = await Restaurant.findByPk(restaurant_id);
@@ -21,7 +21,7 @@ class DashboardController {
     const { restaurant_id } = req.params;
 
     if (!restaurant_id) {
-      return res.status(401).json({ error: 'Restaurant id not provided' });
+      return res.status(400).json({ error: 'Restaurant id not provided' });
     }
 
     const restaurant = await Restaurant.findByPk(restaurant_id);

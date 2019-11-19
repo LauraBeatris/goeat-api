@@ -13,7 +13,7 @@ class ScheduleController {
     const { restaurant_id } = req.params;
 
     if (!restaurant_id) {
-      return res.status(404).json({
+      return res.status(400).json({
         err: "It's not possible to find a restaurant without pass the id",
       });
     }
@@ -61,7 +61,7 @@ class ScheduleController {
             {
               model: File,
               as: 'avatar',
-              attributes: ['id', 'url', 'path'],
+              attributes: ['id', 'url', 'url'],
             },
           ],
         },

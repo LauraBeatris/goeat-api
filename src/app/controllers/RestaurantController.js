@@ -5,7 +5,7 @@ const File = require('../models/File');
 
 class RestaurantController {
   async index(req, res) {
-    const { provider_id } = req.params;
+    const provider_id = req.userId;
 
     // TO DO -> Filtering by address and if it's open
 
@@ -66,7 +66,7 @@ class RestaurantController {
           'country_address',
           'description',
         ],
-        include: [{ model: File, as: 'avatar', attributes: ['name', 'path'] }],
+        include: [{ model: File, as: 'avatar', attributes: ['name', 'url'] }],
       });
     }
 
@@ -96,7 +96,7 @@ class RestaurantController {
     const restaurantExists = await Restaurant.findOne({ where: { name } });
     if (restaurantExists) {
       return res
-        .status(404)
+        .status(400)
         .json({ err: 'A restaurant with that name already exists' });
     }
 

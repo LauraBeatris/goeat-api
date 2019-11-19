@@ -94,7 +94,6 @@ class AppointmentController {
     }
 
     const { provider_id } = restaurant;
-    console.log('restaurant', restaurant);
     /*
       Date verifications
     */
@@ -102,7 +101,7 @@ class AppointmentController {
     // Verifying if it isn't a past date
     if (isBefore(parseISO(date), new Date())) {
       return res
-        .status(400)
+        .status(401)
         .json({ err: "It's not allowed to do appointments in past dates" });
     }
 
@@ -148,7 +147,7 @@ class AppointmentController {
     const { appointment_id } = req.params;
 
     if (!appointment_id) {
-      return res.status(404).json({
+      return res.status(401).json({
         error: "It's not possible to cancel an appointment with passing an id",
       });
     }
@@ -180,7 +179,7 @@ class AppointmentController {
 
     if (appointment && appointment.canceled_at !== null) {
       return res
-        .status(420)
+        .status(400)
         .json({ error: 'This appointment was already canceled' });
     }
 

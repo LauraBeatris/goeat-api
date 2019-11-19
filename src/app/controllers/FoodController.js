@@ -3,40 +3,6 @@ const Restaurant = require('../models/Restaurant');
 const Food = require('../models/Food');
 
 class FoodController {
-  // Listing all the foods of the restaurant
-  async index(req, res) {
-    const { restaurant_id } = req.params;
-    const { type = null } = req.query;
-
-    if (!restaurant_id) {
-      return res.status(404).json({
-        err:
-          "It's not possible to listing the foods without pass the restaurant id",
-      });
-    }
-
-    // Editing query object
-    const query = {
-      restaurant_id,
-    };
-
-    if (type) {
-      query.type = type;
-    }
-
-    const foods = await Food.findAll({
-      where: { ...query },
-      attributes: ['name', 'type', 'price'],
-      include: [
-        {
-          model: Restaurant,
-          as: 'restaurant',
-        },
-      ],
-    });
-    return res.json({ foods });
-  }
-
   async store(req, res) {
     const schema = Joi.object().keys({
       name: Joi.string().required(),
@@ -79,7 +45,7 @@ class FoodController {
 
     if (existingFood)
       return res
-        .status(400)
+        .status(401)
         .json({ err: 'This restaurant already have that food registed' });
 
     // Creating the food
@@ -88,6 +54,40 @@ class FoodController {
     await restaurant.addFood(food.id);
 
     return res.json(food);
+  }
+
+  // Listing all the foods of the restaurant
+  async index(req, res) {
+    const { restaurant_id } = req.params;
+    const { type = null } = req.query;
+
+    if (!restaurant_id) {
+      return res.status(404).json({
+        err:
+          "It's not possible to listing the foods without pass the restaurant id",
+      });
+    }
+
+    // Editing query object
+    const query = {
+      restaurant_id,
+    };
+
+    if (type) {
+      query.type = type;
+    }
+
+    const foods = await Food.findAll({
+      where: { ...query },
+      attributes: ['name', 'type', 'price'],
+      include: [
+        {
+          model: Restaurant,
+          as: 'restaurant',
+        },
+      ],
+    });
+    return res.json({ foods });
   }
 }
 
