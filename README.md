@@ -32,10 +32,10 @@
 <hr>
 
 ## :rocket: About the project
-GoEat is a food delivery application. There's two types of users - Provider or Customer. Providers can create restaurants and open then in any hours,
-updating the restaurants with new foods and getting notifications of new orders or cancelled orders. 
+GoEat is a food delivery application. Providers can create restaurants and open then in anytime them want,also,
+update the restaurants with new foods and getting notifications of new orders or cancelled orders. 
 
-The user has access of the open restaurants and is able to search for establishments in a specific region. 
+The user has access of the open restaurants and them food menu (that can be filtered by types), and is able to search for establishments in a specific region. 
 
 <hr>
 
