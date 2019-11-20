@@ -30,7 +30,7 @@
   * **Code:** 404 NOT FOUND <br />
     **Content:** `{ err : "It's not possible to create a food without pass the restaurant id." }`
   
-  * **Code:** 401 NOT FOUND <br />
+  * **Code:** 401 UNAUTHORIZED <br />
     **Content:** `{ err : "This restaurant already have that food registed." }`
 
 
