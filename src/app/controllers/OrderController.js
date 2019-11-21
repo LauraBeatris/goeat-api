@@ -148,7 +148,7 @@ class OrderController {
 
     if (!order_id) {
       return res.status(401).json({
-        error: "It's not possible to cancel an order with passing an id",
+        error: "It's not possible to cancel an order without passing an id",
       });
     }
 

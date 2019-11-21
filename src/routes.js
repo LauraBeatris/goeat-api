@@ -43,7 +43,7 @@ routes.get('/foods/:restaurant_id', FoodController.index);
 
 routes.post('/orders', OrderController.store);
 routes.get('/orders', OrderController.index);
-routes.delete('/orders/:orders_id', OrderController.delete);
+routes.delete('/orders/:order_id', OrderController.delete);
 
 routes.get('/schedules/:restaurant_id', ScheduleController.index);
 
