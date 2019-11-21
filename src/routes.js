@@ -8,7 +8,7 @@ const SessionController = require('./app/controllers/SessionController');
 const FileController = require('./app/controllers/FileController');
 const RestaurantController = require('./app/controllers/RestaurantController');
 const FoodController = require('./app/controllers/FoodController');
-const AppointmentController = require('./app/controllers/AppointmentController');
+const OrderController = require('./app/controllers/OrderController');
 const ScheduleController = require('./app/controllers/ScheduleController');
 const NotificationsController = require('./app/controllers/NotificationsController');
 const DashboardController = require('./app/controllers/DashboardController');
@@ -41,9 +41,9 @@ routes.get('/restaurants/:provider_id', RestaurantController.index);
 routes.post('/foods/:restaurant_id', FoodController.store);
 routes.get('/foods/:restaurant_id', FoodController.index);
 
-routes.post('/appointments', AppointmentController.store);
-routes.get('/appointments', AppointmentController.index);
-routes.delete('/appointments/:appointment_id', AppointmentController.delete);
+routes.post('/orders', OrderController.store);
+routes.get('/orders', OrderController.index);
+routes.delete('/orders/:orders_id', OrderController.delete);
 
 routes.get('/schedules/:restaurant_id', ScheduleController.index);
 

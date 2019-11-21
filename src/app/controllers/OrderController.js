@@ -18,7 +18,7 @@ const Provider = require('../models/Provider');
 const File = require('../models/File');
 const Notification = require('../schemas/Notification');
 
-class AppointmentController {
+class OrderController {
   async index(req, res) {
     const { page = 1, date } = req.query;
 
@@ -144,16 +144,16 @@ class AppointmentController {
   }
 
   async delete(req, res) {
-    const { appointment_id } = req.params;
+    const { order_id } = req.params;
 
-    if (!appointment_id) {
+    if (!order_id) {
       return res.status(401).json({
         error: "It's not possible to cancel an appointment with passing an id",
       });
     }
 
     const appointment = await Appointment.findOne({
-      where: { id: appointment_id },
+      where: { id: order_id },
       include: [
         {
           model: Restaurant,
@@ -217,4 +217,4 @@ class AppointmentController {
   }
 }
 
-module.exports = new AppointmentController();
+module.exports = new OrderController();
