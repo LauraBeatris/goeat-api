@@ -5,7 +5,7 @@ const User = require('../app/models/User');
 const Restaurant = require('../app/models/Restaurant');
 const Provider = require('../app/models/Provider');
 const File = require('../app/models/File');
-const Appointment = require('../app/models/Appointment');
+const Appointment = require('../app/models/Order');
 const Foods = require('../app/models/Food');
 const databaseConfig = require('../config/database');
 

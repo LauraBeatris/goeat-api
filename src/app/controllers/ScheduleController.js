@@ -1,7 +1,7 @@
 const { startOfDay, endOfDay, parseISO } = require('date-fns');
 const { Op } = require('sequelize');
 const File = require('../models/File');
-const Appointment = require('../models/Appointment');
+const Order = require('../models/Order');
 const Restaurant = require('../models/Restaurant');
 const User = require('../models/User');
 
@@ -9,7 +9,7 @@ class ScheduleController {
   async index(req, res) {
     const { page = 1, date } = req.query;
 
-    // Listing all the appointments related to the owned restaurants of the provider
+    // Listing all the Orders related to the owned restaurants of the provider
     const { restaurant_id } = req.params;
 
     if (!restaurant_id) {
@@ -35,8 +35,8 @@ class ScheduleController {
         [Op.between]: [startOfDay(parsedDate), endOfDay(parsedDate)],
       };
 
-    // Finding the appointments of the restaurant which wasn't cancelled
-    const appointments = await Appointment.findAll({
+    // Finding the Orders of the restaurant which wasn't cancelled
+    const orders = await Order.findAll({
       where: {
         restaurant_id,
         canceled_at: null,
@@ -68,7 +68,7 @@ class ScheduleController {
       ],
     });
 
-    return res.json({ appointments });
+    return res.json({ orders });
   }
 }
 

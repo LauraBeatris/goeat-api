@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const { Model } = require('sequelize');
 const { isBefore, subHours } = require('date-fns');
 
-class Appointment extends Model {
+class Order extends Model {
   static init(sequelize) {
     super.init(
       {
@@ -40,4 +40,4 @@ class Appointment extends Model {
   }
 }
 
-module.exports = Appointment;
+module.exports = Order;

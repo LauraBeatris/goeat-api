@@ -11,7 +11,7 @@ const { Op } = require('sequelize');
 const Queue = require('../../lib/Queue');
 
 const CancellationMail = require('../jobs/CancellationMail');
-const Appointment = require('../models/Appointment');
+const Order = require('../models/Order');
 const Restaurant = require('../models/Restaurant');
 const User = require('../models/User');
 const Provider = require('../models/Provider');
@@ -39,8 +39,8 @@ class OrderController {
         [Op.between]: [startOfDay(parsedDate), endOfDay(parsedDate)],
       };
 
-    // Finding the appointments of the user which wasn't cancelled
-    const appointments = await Appointment.findAll({
+    // Finding the Orders of the user which wasn't cancelled
+    const orders = await Order.findAll({
       where: { user_id: req.userId, canceled_at: null, ...queryDate },
       order: ['date'],
       attributes: ['id', 'date', 'past', 'cancelable'],
@@ -67,7 +67,7 @@ class OrderController {
       ],
     });
 
-    return res.json({ appointments });
+    return res.json({ orders });
   }
 
   async store(req, res) {
@@ -102,11 +102,11 @@ class OrderController {
     if (isBefore(parseISO(date), new Date())) {
       return res
         .status(401)
-        .json({ err: "It's not allowed to do appointments in past dates" });
+        .json({ err: "It's not allowed to do a order in past dates" });
     }
 
     // Checking if the date it's available for booking
-    const checkAvailability = await Appointment.findOne({
+    const checkAvailability = await Order.findOne({
       where: { date, canceled_at: null, restaurant_id },
     });
     if (checkAvailability) {
@@ -114,7 +114,7 @@ class OrderController {
     }
 
     /*
-      Creating the appointments and his notification
+      Creating the orders and his notification
     */
 
     // Getting name of the user
@@ -129,18 +129,18 @@ class OrderController {
       "'day' dd 'of' MMMM',' H:mm 'hours'"
     );
 
-    const appointment = await Appointment.create({
+    const order = await Order.create({
       date,
       user_id: req.userId,
       restaurant_id,
     });
 
     await Notification.create({
-      content: `New appointment - ${restaurantName} - by ${userName} for ${formattedDate}`,
+      content: `New order - ${restaurantName} - by ${userName} for ${formattedDate}`,
       user: provider_id,
     });
 
-    return res.json(appointment);
+    return res.json(order);
   }
 
   async delete(req, res) {
@@ -148,11 +148,11 @@ class OrderController {
 
     if (!order_id) {
       return res.status(401).json({
-        error: "It's not possible to cancel an appointment with passing an id",
+        error: "It's not possible to cancel an order with passing an id",
       });
     }
 
-    const appointment = await Appointment.findOne({
+    const order = await Order.findOne({
       where: { id: order_id },
       include: [
         {
@@ -173,47 +173,45 @@ class OrderController {
         },
       ],
     });
-    if (!appointment) {
-      return res.status(404).json({ error: 'Appointment not found' });
+    if (!order) {
+      return res.status(404).json({ error: 'Order not found' });
     }
 
-    if (appointment && appointment.canceled_at !== null) {
-      return res
-        .status(400)
-        .json({ error: 'This appointment was already canceled' });
+    if (order && order.canceled_at !== null) {
+      return res.status(400).json({ error: 'This order was already canceled' });
     }
 
-    // The user can cancel only his/her appointments - Verifying if the id is different
-    if (appointment.user_id !== req.userId) {
+    // The user can cancel only his/her orders - Verifying if the id is different
+    if (order.user_id !== req.userId) {
       return res.status(401).json({
-        error: "You don't have permission to cancel this appointment",
+        error: "You don't have permission to cancel this order",
       });
     }
 
-    // It's just allowed to cancel appointments with 1 hour of advance
-    const dateWithSub = subHours(appointment.date, 1);
+    // It's just allowed to cancel orders with 1 hour of advance
+    const dateWithSub = subHours(order.date, 1);
 
     if (isBefore(dateWithSub, new Date())) {
       return res.status(401).json({
-        error: 'You can only cancel appointments with 1 hour of advance',
+        error: 'You can only cancel orders with 1 hour of advance',
       });
     }
 
     // Changing the field canceled_at with the current date
-    appointment.canceled_at = new Date();
-    await appointment.save();
+    order.canceled_at = new Date();
+    await order.save();
 
     const formatedDate = format(
-      appointment.date,
+      order.date,
       "'Day' dd 'of' MMMM',' H:mm 'Hours'"
     );
 
     await Queue.add(CancellationMail.key, {
-      appointment,
+      order,
       formatedDate,
     });
 
-    return res.json(appointment);
+    return res.json(order);
   }
 }
 
