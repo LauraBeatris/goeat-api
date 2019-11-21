@@ -206,6 +206,7 @@ class OrderController {
       "'Day' dd 'of' MMMM',' H:mm 'Hours'"
     );
 
+    // TO DO - erro no envio de email
     await Queue.add(CancellationMail.key, {
       order,
       formatedDate,

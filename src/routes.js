@@ -17,6 +17,9 @@ const AuthMiddleware = require('./app/middlewares/auth');
 
 const routes = new Router();
 
+/* Entry Point */ 
+routes.get('/', (req, res) => res.send("Welcome to GoEat API, to start, create a user on the '/users' route or login on the '/sessions' route. If you have some doubt, don't forget to follow the documentation https://github.com/LauraBeatris/goeat-api/blob/master/README.md"))
+
 /* Routes */
 routes.post('/users', UserController.store);
 routes.post('/providers', ProviderController.store);
@@ -30,23 +33,30 @@ routes.post('/files/', multerUpload, FileController.store);
 routes.get('/files/', FileController.index);
 routes.get('/files/:file_id', FileController.show);
 
+// Updating user profile 
 routes.put('/users', UserController.update);
 
+// Listing all the providers 
 routes.get('/providers', ProviderController.index);
 
+// Creating, listing and showing restaurants
 routes.post('/restaurants', RestaurantController.store);
 routes.get('/restaurants', RestaurantController.index);
 routes.get('/restaurants/:provider_id', RestaurantController.index);
 
+// Creating a food for the restaurant menu and listing all the menu of the restaurant
 routes.post('/foods/:restaurant_id', FoodController.store);
 routes.get('/foods/:restaurant_id', FoodController.index);
 
+// Creating, listing and cancelling orders
 routes.post('/orders', OrderController.store);
 routes.get('/orders', OrderController.index);
 routes.delete('/orders/:order_id', OrderController.delete);
 
+// Listing all the orders of the restaurant
 routes.get('/schedules/:restaurant_id', ScheduleController.index);
 
+// Listing all the notifications of the restaurant and updating an specific notification 
 routes.get('/notifications', NotificationsController.index);
 routes.put('/notifications/:notification_id', NotificationsController.update);
 
