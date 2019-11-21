@@ -1,15 +1,29 @@
-**Provider**
+**Food**
 ----
-  _Creating a provider._
+  _Listing the menu of a restaurant._
 
 * **URL**
 
-  _/providers/_
+  _/foods/:restaurant-id_
 
 * **Method:**
   
-  _POST_
+  _GET_
 
+* **URL Params**
+  `Restaurant Id - /foods/1 
+
+* **Success Response:**
+  
+  * **Code:** 200 <br />
+    **Content:** `{
+                    "id": 1,
+                    "name": "Vegeterian Salad",
+                    "price": 24,
+                    "file_id": 1,
+                    "description": "A description",
+                    "type": "Salad",
+                  }`
  
 * **Error Response:**
 
