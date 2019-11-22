@@ -5,13 +5,14 @@ const User = require('../app/models/User');
 const Restaurant = require('../app/models/Restaurant');
 const Provider = require('../app/models/Provider');
 const File = require('../app/models/File');
-const Appointment = require('../app/models/Order');
+const Order = require('../app/models/Order');
 const Foods = require('../app/models/Food');
+const Delivery = require('../app/models/Delivery');
 const databaseConfig = require('../config/database');
 
 dotenv.config({});
 
-const models = [User, Restaurant, Provider, File, Appointment, Foods];
+const models = [User, Restaurant, Provider, File, Order, Foods, Delivery];
 
 class Database {
   constructor() {

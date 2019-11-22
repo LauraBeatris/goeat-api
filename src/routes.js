@@ -9,6 +9,7 @@ const FileController = require('./app/controllers/FileController');
 const RestaurantController = require('./app/controllers/RestaurantController');
 const FoodController = require('./app/controllers/FoodController');
 const OrderController = require('./app/controllers/OrderController');
+const DeliveryController = require('./app/controllers/DeliveryController');
 const ScheduleController = require('./app/controllers/ScheduleController');
 const NotificationsController = require('./app/controllers/NotificationsController');
 const DashboardController = require('./app/controllers/DashboardController');
@@ -17,8 +18,13 @@ const AuthMiddleware = require('./app/middlewares/auth');
 
 const routes = new Router();
 
-/* Entry Point */ 
-routes.get('/', (req, res) => res.send("Welcome to GoEat API, to start, create a user on the '/users' route or login on the '/sessions' route. If you have some doubt, don't forget to follow the documentation https://github.com/LauraBeatris/goeat-api/blob/master/README.md"))
+/* Entry Point */
+
+routes.get('/', (req, res) =>
+  res.send(
+    "Welcome to GoEat API, to start, create a user on the '/users' route or login on the '/sessions' route. If you have some doubt, don't forget to follow the documentation https://github.com/LauraBeatris/goeat-api/blob/master/README.md"
+  )
+);
 
 /* Routes */
 routes.post('/users', UserController.store);
@@ -33,10 +39,10 @@ routes.post('/files/', multerUpload, FileController.store);
 routes.get('/files/', FileController.index);
 routes.get('/files/:file_id', FileController.show);
 
-// Updating user profile 
+// Updating user profile
 routes.put('/users', UserController.update);
 
-// Listing all the providers 
+// Listing all the providers
 routes.get('/providers', ProviderController.index);
 
 // Creating, listing and showing restaurants
@@ -53,10 +59,15 @@ routes.post('/orders', OrderController.store);
 routes.get('/orders', OrderController.index);
 routes.delete('/orders/:order_id', OrderController.delete);
 
+// Creating, updating and delivering the order
+routes.post('/delivery', DeliveryController.store);
+routes.put('/delivery/:delivery_id', DeliveryController.update);
+routes.delete('/delivery/:delivery_id', DeliveryController.delete);
+
 // Listing all the orders of the restaurant
 routes.get('/schedules/:restaurant_id', ScheduleController.index);
 
-// Listing all the notifications of the restaurant and updating an specific notification 
+// Listing all the notifications of the restaurant and updating an specific notification
 routes.get('/notifications', NotificationsController.index);
 routes.put('/notifications/:notification_id', NotificationsController.update);
 
