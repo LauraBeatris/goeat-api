@@ -15,7 +15,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      menu: {
+      food_id: {
         type: Sequelize.INTEGER,
         references: {
           model: 'foods',
@@ -24,7 +24,7 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      order: {
+      order_id: {
         type: Sequelize.INTEGER,
         references: {
           model: 'orders',

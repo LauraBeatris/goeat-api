@@ -49,7 +49,7 @@ class FoodController {
         .json({ err: 'This restaurant already have that food registed' });
 
     // Creating the food
-    const food = await Food.create(req.body);
+    const food = await Food.create({ ...req.body, restaurant_id });
     // Relationship with the restaurant
     await restaurant.addFood(food.id);
 
@@ -67,6 +67,11 @@ class FoodController {
           "It's not possible to listing the foods without pass the restaurant id",
       });
     }
+
+    const restaurant = await Restaurant.findByPk(restaurant_id);
+
+    if (!restaurant)
+      return res.status(404).json({ err: 'Restaurant not found' });
 
     // Editing query object
     const query = {

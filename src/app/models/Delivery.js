@@ -15,6 +15,8 @@ class Delivery extends Model {
 
     return this;
   }
+
+  static associate(models) {}
 }
 
 module.exports = Delivery;

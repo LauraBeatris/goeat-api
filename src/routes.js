@@ -60,9 +60,9 @@ routes.get('/orders', OrderController.index);
 routes.delete('/orders/:order_id', OrderController.delete);
 
 // Creating, updating and delivering the order
-routes.post('/delivery', DeliveryController.store);
-routes.put('/delivery/:delivery_id', DeliveryController.update);
-routes.delete('/delivery/:delivery_id', DeliveryController.delete);
+routes.post('/deliveries/:order_id', DeliveryController.store);
+routes.put('/deliveries/:delivery_id', DeliveryController.update);
+routes.delete('/deliveries/:delivery_id', DeliveryController.delete);
 
 // Listing all the orders of the restaurant
 routes.get('/schedules/:restaurant_id', ScheduleController.index);
