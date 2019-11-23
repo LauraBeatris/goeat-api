@@ -99,7 +99,7 @@ To run the queue for the mail job
 - **Sessions Resources**:
   - **[<code>POST</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/sessions/session-post.md)**
 
-- **Order Resources**:
+- **Orders Resources**:
   - **[<code>POST</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/orders/order-post.md)**
   - **[<code>DELETE</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/orders/order-delete.md)**
   - **[<code>GET</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/orders/order-get.md)**
