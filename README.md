@@ -47,7 +47,7 @@ Fast and clean application for providers and users who want to enjoy a good deli
 First, you need to install docker and docker-compose on your machine in order to use the services. Create a .env similar
 to the .env.example in the files above. 
 <br>
-To run the containers 
+To build the containers 
 
 ```
 docker-compose up -d
