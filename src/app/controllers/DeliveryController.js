@@ -57,13 +57,13 @@ class DeliveryController {
     // Creating the delivery data
     const { message, status } = req.body;
 
-    await Delivery.create({
+    const { id } = await Delivery.create({
       message,
       status,
       order: order_id,
     });
 
-    return res.json({ message, status, order });
+    return res.json({ id, message, status, order });
   }
 
   // Updating the delivery informations
@@ -84,12 +84,6 @@ class DeliveryController {
     const { delivery_id } = req.params;
     const delivery = await Delivery.findByPk(delivery_id);
     if (!delivery) return res.status(404).json({ err: 'Delivery not found' });
-
-    // Not able to update an order that was already delivered
-    if (delivery.canceled_at !== null)
-      return res
-        .status(401)
-        .json({ err: 'Not allowed to update a finished delivery' });
 
     await delivery.update(req.body);
     return res.json(delivery);

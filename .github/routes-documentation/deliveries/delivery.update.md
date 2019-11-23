@@ -62,9 +62,3 @@
 
   * **Code:** 404 NOT FOUND <br />
     **Content:** `{ err : "Order not found" }`
-  
-  OR
-
-  * **Code:** 401 UNAUTHORIZED <br />
-    **Content:** `{ err : "Not allowed to update a finished delivery" }`
-
