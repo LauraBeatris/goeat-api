@@ -15,15 +15,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      food_id: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'foods',
-          key: 'id',
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-      },
       order_id: {
         type: Sequelize.INTEGER,
         references: {
@@ -32,6 +23,7 @@ module.exports = {
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
+        allowNull: false,
       },
       created_at: {
         type: Sequelize.DATE,

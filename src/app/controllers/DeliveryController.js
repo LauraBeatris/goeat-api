@@ -1,7 +1,11 @@
 const Joi = require('joi');
+const { Op } = require('sequelize');
 const Delivery = require('../models/Delivery');
 const Order = require('../models/Order');
+const User = require('../models/User');
+const Restaurant = require('../models/Restaurant');
 const Food = require('../models/Food');
+const File = require('../models/File');
 
 class DeliveryController {
   // Storing the first delivery informations
@@ -9,7 +13,6 @@ class DeliveryController {
     const schema = Joi.object().keys({
       status: Joi.string().required(),
       message: Joi.string().required(),
-      food_id: Joi.number().required(),
     });
 
     // Input data validation
@@ -19,29 +22,48 @@ class DeliveryController {
       }
     });
 
+    // Validating same deliveries
+
     const { order_id } = req.params;
-    const { food_id } = req.body;
 
     // Finding the order related to the delivery
     if (!order_id) return res.status(400).json({ err: 'Order id not found' });
-    const order = await Order.findByPk(order_id);
+    const order = await Order.findOne({
+      where: { id: order_id, canceled_at: null, food_id: { [Op.not]: null } },
+      attributes: ['id', 'cancelable', 'date', 'created_at', 'updated_at'],
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: ['id', 'name', 'email'],
+          include: [{ model: File, as: 'avatar', attributes: ['url'] }],
+        },
+        {
+          model: Restaurant,
+          as: 'restaurant',
+          attributes: ['id', 'name'],
+          include: [{ model: File, as: 'avatar', attributes: ['url'] }],
+        },
+        {
+          model: Food,
+          as: 'food',
+          attributes: ['id', 'name', 'price', 'type'],
+          include: [{ model: File, as: 'avatar', attributes: ['url'] }],
+        },
+      ],
+    });
     if (!order) return res.status(404).json({ err: 'Order not found' });
-
-    // Finding the food related to the delivery
-    const food = await Food.findByPk(food_id);
-    if (!food) return res.status(404).json({ err: 'Food not found' });
 
     // Creating the delivery data
     const { message, status } = req.body;
 
-    const delivery = await Delivery.create({
+    await Delivery.create({
       message,
       status,
-      order_id,
-      food_id,
+      order: order_id,
     });
 
-    return res.json(delivery);
+    return res.json({ message, status, order });
   }
 
   // Updating the delivery informations

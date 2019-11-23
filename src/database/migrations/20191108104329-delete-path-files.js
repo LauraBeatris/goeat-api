@@ -2,7 +2,7 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.addColumn('files', 'url', {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: true,
     });
   },
 

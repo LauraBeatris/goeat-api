@@ -37,6 +37,7 @@ class Order extends Model {
       foreignKey: 'restaurant_id',
       as: 'restaurant',
     });
+    this.belongsTo(models.Foods, { foreignKey: 'food_id', as: 'food' });
   }
 }
 

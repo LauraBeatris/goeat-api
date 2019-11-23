@@ -92,6 +92,7 @@ class FoodController {
         },
       ],
     });
+
     return res.json({ foods });
   }
 }

@@ -15,7 +15,8 @@
   ` 
   {
     "date": "2019-11-22T23:00:00-03:00",
-    "restaurant_id": 1
+    "restaurant_id": 1,
+    "food_id": 1
   }
   `
 
@@ -29,6 +30,7 @@
                     "date": "2019-11-23T02:00:00.000Z",
                     "user_id": 1,
                     "restaurant_id": 1,
+                    "food_id": 1,
                     "updatedAt": "2019-11-18T22:31:10.380Z",
                     "createdAt": "2019-11-18T22:31:10.380Z",
                     "canceled_at": null

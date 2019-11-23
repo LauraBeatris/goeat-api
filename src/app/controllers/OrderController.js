@@ -17,63 +17,16 @@ const User = require('../models/User');
 const Provider = require('../models/Provider');
 const File = require('../models/File');
 const Notification = require('../schemas/Notification');
+const Food = require('../models/Food');
 
 class OrderController {
-  async index(req, res) {
-    const { page = 1, date } = req.query;
-
-    // Finding the user
-    const user = await User.findByPk(req.userId);
-
-    if (!user) {
-      return res.status(404).json({
-        err: 'User not found',
-      });
-    }
-
-    // Date Query Operations - Filtering by day
-    const parsedDate = parseISO(date);
-    const queryDate = {};
-    if (date)
-      queryDate.date = {
-        [Op.between]: [startOfDay(parsedDate), endOfDay(parsedDate)],
-      };
-
-    // Finding the Orders of the user which wasn't cancelled
-    const orders = await Order.findAll({
-      where: { user_id: req.userId, canceled_at: null, ...queryDate },
-      order: ['date'],
-      attributes: ['id', 'date', 'past', 'cancelable'],
-      limit: 20,
-      offset: (page - 1) * 20,
-      include: [
-        {
-          model: Restaurant,
-          as: 'restaurant',
-          attributes: ['id', 'name', 'street_address', 'number_address'],
-        },
-        {
-          model: User,
-          as: 'user',
-          attributes: ['id', 'name', 'email'],
-          include: [
-            {
-              model: File,
-              as: 'avatar',
-              attributes: ['id', 'url'],
-            },
-          ],
-        },
-      ],
-    });
-
-    return res.json({ orders });
-  }
-
   async store(req, res) {
     const schema = Joi.object().keys({
       date: Joi.date().required(),
       restaurant_id: Joi.number()
+        .integer()
+        .required(),
+      food_id: Joi.number()
         .integer()
         .required(),
     });
@@ -84,7 +37,7 @@ class OrderController {
       }
     });
 
-    const { date, restaurant_id } = req.body;
+    const { date, restaurant_id, food_id } = req.body;
 
     // Finding restaurant
     const restaurant = await Restaurant.findByPk(restaurant_id);
@@ -129,12 +82,18 @@ class OrderController {
       "'day' dd 'of' MMMM',' H:mm 'hours'"
     );
 
+    // Validating food
+    const food = await Food.findOne({ where: { id: food_id, restaurant_id } });
+    if (!food) return res.status(404).json({ err: 'Food not found' });
+
     const order = await Order.create({
       date,
       user_id: req.userId,
       restaurant_id,
+      food_id,
     });
 
+    // Adding the foods to the order
     await Notification.create({
       content: `New order - ${restaurantName} - by ${userName} for ${formattedDate}`,
       user: provider_id,
@@ -213,6 +172,57 @@ class OrderController {
     });
 
     return res.json(order);
+  }
+
+  async index(req, res) {
+    const { page = 1, date } = req.query;
+
+    // Finding the user
+    const user = await User.findByPk(req.userId);
+
+    if (!user) {
+      return res.status(404).json({
+        err: 'User not found',
+      });
+    }
+
+    // Date Query Operations - Filtering by day
+    const parsedDate = parseISO(date);
+    const queryDate = {};
+    if (date)
+      queryDate.date = {
+        [Op.between]: [startOfDay(parsedDate), endOfDay(parsedDate)],
+      };
+
+    // Finding the Orders of the user which wasn't cancelled
+    const orders = await Order.findAll({
+      where: { user_id: req.userId, canceled_at: null, ...queryDate },
+      order: ['date'],
+      attributes: ['id', 'date', 'past', 'cancelable'],
+      limit: 20,
+      offset: (page - 1) * 20,
+      include: [
+        {
+          model: Restaurant,
+          as: 'restaurant',
+          attributes: ['id', 'name', 'street_address', 'number_address'],
+        },
+        {
+          model: User,
+          as: 'user',
+          attributes: ['id', 'name', 'email'],
+          include: [
+            {
+              model: File,
+              as: 'avatar',
+              attributes: ['id', 'url'],
+            },
+          ],
+        },
+      ],
+    });
+
+    return res.json({ orders });
   }
 }
 
