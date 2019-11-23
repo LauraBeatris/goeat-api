@@ -75,6 +75,9 @@ To start the application
   // Production mode - .env
   yarn start
   
+  // Executing the migrations for the database
+  yarn sequelize db:migrate
+  
 ```
 To run the queue for the mail job
 ```
