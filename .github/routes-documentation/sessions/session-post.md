@@ -4,7 +4,7 @@
 
 * **URL**
 
-  _/sessions/_
+  _/sessions?type=${user|provider}_
 
 * **Method:**
   
