@@ -14,7 +14,7 @@
 
   ` 
     {
-      "status": "Sent",
+      "status": "Delivered succesfully",
       "message": "Thanks for choosing our restaurant :)"
     }
   `
@@ -23,7 +23,7 @@
   
   * **Code:** 200 <br />
     **Content:**  `{
-                    "message": "Sent",
+                    "message": "Delivered succesfully",
                     "status": "Thanks for choosing our restaurant :)",
                     "order": {
                       "cancelable": true,
@@ -62,4 +62,9 @@
 
   * **Code:** 404 NOT FOUND <br />
     **Content:** `{ err : "Order not found" }`
+  
+  OR
+
+  * **Code:** 401 UNAUTHORIZED <br />
+    **Content:** `{ err : "Not allowed to update a finished delivery" }`
 

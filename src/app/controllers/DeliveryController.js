@@ -67,7 +67,33 @@ class DeliveryController {
   }
 
   // Updating the delivery informations
-  async update(req, res) {}
+  async update(req, res) {
+    const schema = Joi.object().keys({
+      status: Joi.string(),
+      message: Joi.string(),
+    });
+
+    // Input data validation
+    Joi.validate(req.body, schema, err => {
+      if (err) {
+        return res.status(422).json({ err: err.details });
+      }
+    });
+
+    // Finding and validation the current delivery data
+    const { delivery_id } = req.params;
+    const delivery = await Delivery.findByPk(delivery_id);
+    if (!delivery) return res.status(404).json({ err: 'Delivery not found' });
+
+    // Not able to update an order that was already delivered
+    if (delivery.canceled_at !== null)
+      return res
+        .status(401)
+        .json({ err: 'Not allowed to update a finished delivery' });
+
+    await delivery.update(req.body);
+    return res.json(delivery);
+  }
 
   // Deleting the delivery informations when it's already checked
   async delete(req, res) {}
