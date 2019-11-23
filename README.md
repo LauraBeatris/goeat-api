@@ -99,10 +99,10 @@ To run the queue for the mail job
 - **Sessions Resources**:
   - **[<code>POST</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/sessions/session-post.md)**
 
-- **Appointment Resources**:
-  - **[<code>POST</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/appointments/appointment-post.md)**
-  - **[<code>DELETE</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/appointments/appointment-delete.md)**
-  - **[<code>GET</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/appointments/appointment-get.md)**
+- **Order Resources**:
+  - **[<code>POST</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/orders/order-post.md)**
+  - **[<code>DELETE</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/orders/order-delete.md)**
+  - **[<code>GET</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/orders/order-get.md)**
     
 - **Restaurant Resources**:
   - **[<code>POST</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/restaurants/restaurant-create.md)**
