@@ -6,6 +6,9 @@
 
   _/deliveries/:order-id_
 
+* **URL Params**
+  `Order Id - /deliveries/2
+
 * **Method:**
   
   _POST_

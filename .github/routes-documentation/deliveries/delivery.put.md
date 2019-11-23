@@ -4,11 +4,15 @@
 
 * **URL**
 
-  _/deliveries/:order-id_
+  _/deliveries/:delivery-id_
+
+
+* **URL Params**
+  `Delivery Id - /deliveries/2
 
 * **Method:**
   
-  _POST_
+  _PUT_
 
 * **Data Params**
 
@@ -61,4 +65,4 @@
 * **Error Response:**
 
   * **Code:** 404 NOT FOUND <br />
-    **Content:** `{ err : "Order not found" }`
+    **Content:** `{ err : "Delivery not found" }`

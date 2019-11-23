@@ -4,7 +4,8 @@
 
 * **URL**
 
-  _/sessions?type=${user|provider}_
+  _/sessions?type=${user}_ - To create a session as a user
+  _/sessions_ - To create a session as a provider
 
 * **Method:**
   
