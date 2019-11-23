@@ -75,6 +75,9 @@ To start the application
   // Production mode - .env
   yarn start
   
+  // Executing the migrations for the database
+  yarn sequelize db:migrate
+  
 ```
 To run the queue for the mail job
 ```
@@ -96,10 +99,10 @@ To run the queue for the mail job
 - **Sessions Resources**:
   - **[<code>POST</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/sessions/session-post.md)**
 
-- **Appointment Resources**:
-  - **[<code>POST</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/appointments/appointment-post.md)**
-  - **[<code>DELETE</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/appointments/appointment-delete.md)**
-  - **[<code>GET</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/appointments/appointment-get.md)**
+- **Orders Resources**:
+  - **[<code>POST</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/orders/order-post.md)**
+  - **[<code>DELETE</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/orders/order-delete.md)**
+  - **[<code>GET</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/orders/order-get.md)**
     
 - **Restaurant Resources**:
   - **[<code>POST</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/restaurants/restaurant-create.md)**
@@ -139,5 +142,7 @@ Goeat returns the following status codes in its API:
 MIT Licence. See the file [LICENSE](LICENSE.md) for more details.
 
 ---
+
+If you have some problem with the documentation, send a pull request that i'll be happy to help. 😃
 
 Made with ♥ by Laura :wave: [See my linkedin!](https://www.linkedin.com/in/laurabeatris/)
