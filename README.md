@@ -143,4 +143,6 @@ MIT Licence. See the file [LICENSE](LICENSE.md) for more details.
 
 ---
 
+If you have some problem with the documentation, send a pull request that i'll be happy to help. 😃
+
 Made with ♥ by Laura :wave: [See my linkedin!](https://www.linkedin.com/in/laurabeatris/)
