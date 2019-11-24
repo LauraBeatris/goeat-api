@@ -1,4 +1,4 @@
-const Joi = require('joi');
+const Joi = require('@hapi/joi');
 const { Op } = require('sequelize');
 const { format } = require('date-fns');
 const Delivery = require('../models/Delivery');
@@ -17,11 +17,10 @@ class DeliveryController {
     });
 
     // Input data validation
-    Joi.validate(req.body, schema, err => {
-      if (err) {
-        return res.status(422).json({ err: err.details });
-      }
-    });
+    const { err } = schema.validate(req.body);
+    if (err) {
+      return res.status(422).json({ err: err.details });
+    }
 
     // Validating same deliveries
 
@@ -80,11 +79,10 @@ class DeliveryController {
     });
 
     // Input data validation
-    Joi.validate(req.body, schema, err => {
-      if (err) {
-        return res.status(422).json({ err: err.details });
-      }
-    });
+    const { err } = schema.validate(req.body);
+    if (err) {
+      return res.status(422).json({ err: err.details });
+    }
 
     // Finding and validation the current delivery data
     const { delivery_id } = req.params;

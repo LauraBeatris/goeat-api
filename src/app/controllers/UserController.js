@@ -1,4 +1,4 @@
-const Joi = require('joi');
+const Joi = require('@hapi/joi');
 const Yup = require('yup');
 const User = require('../models/User');
 const File = require('../models/File');
@@ -18,11 +18,10 @@ class UserController {
       file_id: Joi.number().required(),
     });
 
-    Joi.validate(req.body, schema, err => {
-      if (err) {
-        return res.status(422).json({ err: err.details });
-      }
-    });
+    const { err } = schema.validate(req.body);
+    if (err) {
+      return res.status(422).json({ err: err.details });
+    }
 
     const { name, email, password, file_id } = req.body;
 

@@ -1,4 +1,4 @@
-const Joi = require('joi');
+const Joi = require('@hapi/joi');
 const Restaurant = require('../models/Restaurant');
 const Provider = require('../models/Provider');
 const File = require('../models/File');
@@ -85,11 +85,10 @@ class RestaurantController {
       is_closed: Joi.boolean(),
     });
 
-    Joi.validate(req.body, schema, err => {
-      if (err) {
-        return res.status(422).json({ err: err.details });
-      }
-    });
+    const { err } = schema.validate(req.body);
+    if (err) {
+      return res.status(422).json({ err: err.details });
+    }
 
     const { name } = req.body;
 

@@ -1,4 +1,4 @@
-const Joi = require('joi');
+const Joi = require('@hapi/joi');
 const {
   parseISO,
   isBefore,
@@ -31,11 +31,10 @@ class OrderController {
         .required(),
     });
 
-    await Joi.validate(req.body, schema, err => {
-      if (err) {
-        return res.status(422).json({ err: err.details });
-      }
-    });
+    const { err } = schema.validate(req.body);
+    if (err) {
+      return res.status(422).json({ err: err.details });
+    }
 
     const { date, restaurant_id, food_id } = req.body;
 

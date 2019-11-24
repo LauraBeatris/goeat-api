@@ -1,4 +1,4 @@
-const Joi = require('joi');
+const Joi = require('@hapi/joi');
 const Restaurant = require('../models/Restaurant');
 const Food = require('../models/Food');
 
@@ -12,11 +12,10 @@ class FoodController {
       description: Joi.string().required(),
     });
 
-    Joi.validate(req.body, schema, err => {
-      if (err) {
-        return res.status(422).json({ err: err.details });
-      }
-    });
+    const { err } = schema.validate(req.body);
+    if (err) {
+      return res.status(422).json({ err: err.details });
+    }
 
     const { restaurant_id } = req.params;
 
