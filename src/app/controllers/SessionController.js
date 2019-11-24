@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const Joi = require('joi');
+const Joi = require('@hapi/joi');
 const User = require('../models/User');
 const Provider = require('../models/Provider');
 
@@ -10,11 +10,10 @@ class SessionController {
       password: Joi.string().required(),
     });
 
-    Joi.validate(req.body, schema, err => {
-      if (err) {
-        return res.status(422).json({ err: err.details });
-      }
-    });
+    const { err } = schema.validate(req.body);
+    if (err) {
+      return res.status(422).json({ err: err.details });
+    }
 
     const { email, password } = req.body;
 

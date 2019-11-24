@@ -1,4 +1,4 @@
-const Joi = require('joi');
+const Joi = require('@hapi/joi');
 const Yup = require('yup');
 const File = require('../models/File');
 const Provider = require('../models/Provider');
@@ -16,11 +16,10 @@ class ProviderController {
         .required(),
     });
 
-    await Joi.validate(req.body, schema, err => {
-      if (err) {
-        return res.status(422).json({ err: err.details });
-      }
-    });
+    const { err } = schema.validate(req.body);
+    if (err) {
+      return res.status(422).json({ err: err.details });
+    }
 
     const { email } = req.body;
 
