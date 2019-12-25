@@ -73,7 +73,7 @@ class UserController {
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ error: 'Validation fails' });
     }
-    const { email: passedEmail, oldPassword } = req.body;
+    const { email: passedEmail = '', oldPassword } = req.body;
 
     // Finding the user register
     const user = await User.findByPk(req.userId);
@@ -100,10 +100,15 @@ class UserController {
       return res.status(401).json({ error: "Password doesn't match" });
     }
 
-    const { id, name, email } = await user.update(req.body);
+    await user.update(req.body);
     await user.save();
 
-    return res.json({ id, name, email });
+    // Getting the data of the updated profile - Re-doing the request to extract the avatar url
+    const { id, name, email, avatar } = await User.findByPk(req.userId, {
+      include: [{ model: File, as: 'avatar', attributes: ['url'] }],
+    });
+
+    return res.json({ id, name, email, avatar });
   }
 }
 module.exports = new UserController();
