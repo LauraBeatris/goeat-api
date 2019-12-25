@@ -19,18 +19,32 @@ class SessionController {
     const { email, password } = req.body;
 
     const isProvider = req.query.type !== 'user';
-    let user;
+    let user = null;
     if (isProvider) {
       user = await Provider.findOne({
         where: { email },
         attributes: ['id', 'name', 'email', 'password_hash'],
-        include: [{ model: File, as: 'avatar', attributes: ['url'] }],
+        include: [
+          {
+            model: File,
+            as: 'avatar',
+            foreignKey: 'file_id',
+            attributes: ['url'],
+          },
+        ],
       });
     } else {
       user = await User.findOne({
         where: { email },
         attributes: ['id', 'name', 'email', 'password_hash'],
-        include: [{ model: File, as: 'avatar', attributes: ['url'] }],
+        include: [
+          {
+            model: File,
+            as: 'avatar',
+            foreignKey: 'file_id',
+            attributes: ['url'],
+          },
+        ],
       });
     }
 
@@ -41,20 +55,20 @@ class SessionController {
         .status(404)
         .json({ error: `${isProvider ? 'Provider' : 'User'} not found` });
     }
-    console.log(user, 'user');
 
     // Password verification
     if (!(await user.checkPassword(password))) {
       return res.status(401).json({ error: "Password doesn't match" });
     }
 
-    const { id, name } = user;
+    const { id, name, avatar } = user;
 
     return res.json({
       user: {
         id,
         name,
         email,
+        avatar,
       },
       token: jwt.sign({ id }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRE,
