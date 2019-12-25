@@ -23,13 +23,13 @@ class SessionController {
     if (isProvider) {
       user = await Provider.findOne({
         where: { email },
-        attributes: ['id', 'name', 'email'],
+        attributes: ['id', 'name', 'email', 'password_hash'],
         include: [{ model: File, as: 'avatar', attributes: ['url'] }],
       });
     } else {
       user = await User.findOne({
         where: { email },
-        attributes: ['id', 'name', 'email'],
+        attributes: ['id', 'name', 'email', 'password_hash'],
         include: [{ model: File, as: 'avatar', attributes: ['url'] }],
       });
     }
@@ -41,6 +41,7 @@ class SessionController {
         .status(404)
         .json({ error: `${isProvider ? 'Provider' : 'User'} not found` });
     }
+    console.log(user, 'user');
 
     // Password verification
     if (!(await user.checkPassword(password))) {

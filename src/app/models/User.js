@@ -22,7 +22,6 @@ class User extends Model {
       }
     });
 
-    // Return the model that was initialized
     return this;
   }
 
