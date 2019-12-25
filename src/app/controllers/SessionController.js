@@ -69,6 +69,7 @@ class SessionController {
         name,
         email,
         avatar,
+        isProvider,
       },
       token: jwt.sign({ id }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRE,
