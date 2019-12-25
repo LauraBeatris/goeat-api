@@ -31,6 +31,8 @@ class App {
     // Ready to receive request in json format
     this.server.use(express.json());
 
+    // TODO -> Set address of the goeat web application
+    // this.server.use(cors({origin: 'https://somename'}));
     this.server.use(cors());
   }
 

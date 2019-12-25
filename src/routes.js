@@ -31,11 +31,12 @@ routes.post('/users', UserController.store);
 routes.post('/providers', ProviderController.store);
 routes.post('/sessions', SessionController.store);
 
+// File -> name of the field in the multipart form data
+routes.post('/files/', multerUpload, FileController.store);
+
 /* Starting to use the auth middleware */
 routes.use(AuthMiddleware);
 
-// File -> name of the field in the multipart form data
-routes.post('/files/', multerUpload, FileController.store);
 routes.get('/files/', FileController.index);
 routes.get('/files/:file_id', FileController.show);
 

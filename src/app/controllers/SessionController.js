@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const Joi = require('@hapi/joi');
 const User = require('../models/User');
+const File = require('../models/File');
 const Provider = require('../models/Provider');
 
 class SessionController {
@@ -20,9 +21,17 @@ class SessionController {
     const isProvider = req.query.type !== 'user';
     let user;
     if (isProvider) {
-      user = await Provider.findOne({ where: { email } });
+      user = await Provider.findOne({
+        where: { email },
+        attributes: ['id', 'name', 'email'],
+        include: [{ model: File, as: 'avatar', attributes: ['url'] }],
+      });
     } else {
-      user = await User.findOne({ where: { email } });
+      user = await User.findOne({
+        where: { email },
+        attributes: ['id', 'name', 'email'],
+        include: [{ model: File, as: 'avatar', attributes: ['url'] }],
+      });
     }
 
     // Verifying if the user exists

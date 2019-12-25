@@ -46,6 +46,7 @@ class UserController {
       password,
     };
 
+    // Creating the user with an avatar (Optional)
     if (file_id) fields.file_id = file_id;
 
     // Creating the user
