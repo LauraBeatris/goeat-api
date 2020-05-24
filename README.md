@@ -1,129 +1,94 @@
-<h1 align="center">
-  <img alt="GoEat" title="GoEat" src=".github/delivery-icon.gif" width="200px" />
-</h1>
-
-<h2 style="color:red" align="center"> GoEat </h3>
-<h3 align="center">
-  Express Application for a Food Delivery App 
-</h3>
-
-<p align="center">
-  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/LauraBeatris/goeat-api?color=yellow">
-
-  <a href="https://www.linkedin.com/in/laurabeatris/">
-    <img alt="Made by Laura Beatris" src="https://img.shields.io/badge/made%20by-laura%20beatris-yellow">
-  </a>
-
-  <img alt="License" src="https://img.shields.io/badge/licence-MIT-yellow">
-
-  <a href="https://github.com/LauraBeatris/goeat-api/stargazers">
-    <img alt="Stargazers" src="https://img.shields.io/github/stars/LauraBeatris/goeat-api?style=social">
-  </a>
+<p align="left">
+   <img src=".github/delivery-icon.gif" width="200"/>
 </p>
 
-<p align="center">
-  <a href="#rocket-about-the-project">About the project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#ballot_box_with_check-goals">Goals</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#checkered_flag-installation">Installation</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#incoming_envelope-routes">Routes</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#memo-licence">Licence</a>
-</p>
+# GoEat
 
-<hr>
+> Rest API for Food Delivery Businesses, providing fast and clean service for providers and users.
 
-## :rocket: About the project
-GoEat is a food delivery application. Providers can create and open restaurants in anytime them want, also, update the restaurants with new foods and get notifications of new orders or cancelled orders. 
+[![Author](https://img.shields.io/badge/author-LauraBeatris-F9B35F?style=flat-square)](https://github.com/LauraBeatris)
+[![Languages](https://img.shields.io/github/languages/count/LauraBeatris/goeat-api?color=%23F9B35F&style=flat-square)](#)
+[![Stars](https://img.shields.io/github/stars/LauraBeatris/goeat-api?color=F9B35F&style=flat-square)](https://github.com/LauraBeatris/goeat-api/stargazers)
+[![Forks](https://img.shields.io/github/forks/LauraBeatris/goeat-api?color=%23F9B35F&style=flat-square)](https://github.com/LauraBeatris/goeat-api/network/members)
+[![Contributors](https://img.shields.io/github/contributors/LauraBeatris/goeat-api?color=F9B35F&style=flat-square)](https://github.com/LauraBeatris/goeat-api/graphs/contributors)
 
-The user has access of the open restaurants and them food menu (that can be filtered by types), and is able to search for establishments in a specific region. 
+# :pushpin: Table of Contents
 
-<hr>
+* [Features](#rocket-features)
+* [Installation](#construction_worker-installation)
+* [Getting Started](#runner-getting-started)
+* [FAQ](#postbox-faq)
+* [Found a bug? Missing a specific feature?](#bug-issues)
+* [Contributing](#tada-contributing)
+* [License](#closed_book-license)
 
-## :ballot_box_with_check: Goals
-Fast and clean application for providers and users who want to enjoy a good delivery food service
+# :rocket: Features
 
-<hr>
+*  🍽 Schedule appointments in restaurants
+*  🛵 Request food orders
+*  👩‍💼 Manage restaurants
+*  📁 Files upload
+*  👩🏻‍💻 Provider and user interface
 
-## :checkered_flag: Installation 
-First, you need to install docker and docker-compose on your machine in order to use the services. Create a .env similar
-to the .env.example in the files above. 
-<br>
+# :construction_worker: Installation
 
-To build the containers 
+**You need to install [Node.js](https://nodejs.org/en/download/) and [Yarn](https://yarnpkg.com/) first, then in order to clone the project via HTTPS, run this command:**
 
-```
-docker-compose up -d
-```
+```git clone https://github.com/LauraBeatris/goeat-api.git```
+
+SSH URLs provide access to a Git repository via SSH, a secure protocol. If you use a SSH key registered in your Github account, clone the project using this command:
+
+```git clone git@github.com:LauraBeatris/goeat-api.git```
+
+**Install dependencies**
+
+```yarn install```
+
+Create your enviroment variables based on the examples of ```.env.example```
+
+```cp .env.example .env```
+
+After copying the examples, make sure to fill the variables with new values.
+
+**Setup a database**
+
+Install [Postgres](https://www.postgresql.org/) to create a database or if you have [Docker](https://www.docker.com/) in your machine, fill the environment values related to database configurations and then run the following commands in order to create a postgres container.
+
+```docker-compose up```
 
 Check if the containers are running
 
-```
-docker ps
-```
+``` docker ps ```
 
-<br>
+# :runner: Getting Started
 
-Now, to install the dependencies
+Run the transactions in order to configure all the database schemas
 
-```
-yarn install
-```
+```yarn typeorm migration:run```
 
-To start the application 
-```
-  // Development mode - .env.development
-  yarn dev 
-  // Production mode - .env
-  yarn start
-  
-  // Executing the migrations for the database
-  yarn sequelize db:migrate
-  
-```
-To run the queue for the mail job
-```
-  // Development mode - .env.development
-  yarn queue-dev
-  // Production mode - .env
-  yarn queue
-```
+Run the following command in order to start the application in a development environment:
 
-## :incoming_envelope: Routes
-- **User Resources**:
-  - **[<code>POST</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/users/user-post.md)**
-  - **[<code>PUT</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/users/user-put.md)**
-  
-- **Provider Resources**:
-  - **[<code>POST</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/providers/provider-post.md)**
-  - **[<code>PUT</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/providers/provider-put.md)**
-  
-- **Sessions Resources**:
-  - **[<code>POST</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/sessions/session-post.md)**
+```yarn dev```
 
-- **Orders Resources**:
-  - **[<code>POST</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/orders/order-post.md)**
-  - **[<code>DELETE</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/orders/order-delete.md)**
-  - **[<code>GET</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/orders/order-get.md)**
-    
-- **Restaurant Resources**:
-  - **[<code>POST</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/restaurants/restaurant-create.md)**
-   - **[<code>GET</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/restaurants/restaurant-get.md)**
-   
-- **Files Resources**:
-  - **[<code>POST</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/files/files-post.md)**
-   - **[<code>GET - LISTING </code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/files/files-get.md)**
-   - **[<code>GET - SHOW </code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/files/files-show.md)**
+Run the following command to run the queue responsable for the mail job
 
-- **Dashboard Resources**:
-  - **[<code>POST</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/dashboard/dashboard-post.md)**
-  - **[<code>DELETE</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/dashboard/dashboard-delete.md)**
+``` yarn queue-dev ```
 
-- **Schedule Resources**:
-  - **[<code>GET</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/schedule/schedule-get.md)**
+# Run in production
 
-- **Food Resources**:
-   - **[<code>POST</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/foods/foods-create.md)**
-   - **[<code>GET</code> photos](https://github.com/LauraBeatris/goeat-api/blob/master/.github/routes-documentation/foods/foods-get.md)**
-<hr>
+Run the following command in order to start the application in a production environment:
+
+```yarn start```
+
+Run the following command to run the queue responsable for the mail job
+
+``` yarn queue ```
+
+# :postbox: Faq
+
+**Question:** What are the tecnologies used in this project?
+
+**Answer:** The tecnologies used in this project are [NodeJS](https://nodejs.org/en/) + [Express Framework](http://expressjs.com/en/) to handle the server and [Sequelize](https://sequelize.org/)
 
 ## Status Codes
 
@@ -137,12 +102,17 @@ Goeat returns the following status codes in its API:
 | 404 | `NOT FOUND` |
 | 500 | `INTERNAL SERVER ERROR` |
 
-## :memo: Licence
+# :bug: Issues
 
-MIT Licence. See the file [LICENSE](LICENSE.md) for more details.
+Feel free to **file a new issue** with a respective title and description on the the [GoEat API](https://github.com/LauraBeatris/goeat-api/issues) repository. If you already found a solution to your problem, **i would love to review your pull request**! Have a look at our [contribution guidelines](https://github.com/LauraBeatris/goeat-api/blob/master/CONTRIBUTING.md) to find out about the coding standards.
 
----
+# :tada: Contributing
 
-If you have some problem with the documentation, just send a pull request that i'll be happy to help. 😃
+Check out the [contributing](https://github.com/LauraBeatris/goeat-api/blob/master/CONTRIBUTING.md) page to see the best places to file issues, start discussions and begin contributing.
 
-Made with ♥ by Laura :wave: [See my linkedin!](https://www.linkedin.com/in/laurabeatris/)
+# :closed_book: License
+
+Released in 2020.
+This project is under the [MIT license](https://github.com/LauraBeatris/foodfy/master/LICENSE).
+
+Made with love by [Laura Beatris](https://github.com/LauraBeatris) 💜🚀
