@@ -64,7 +64,7 @@ Check if the containers are running
 
 Run the transactions in order to configure all the database schemas
 
-```yarn typeorm migration:run```
+`npx sequelize-cli db:migrate`
 
 Run the following command in order to start the application in a development environment:
 
@@ -72,7 +72,7 @@ Run the following command in order to start the application in a development env
 
 Run the following command to run the queue responsable for the mail job
 
-``` yarn queue-dev ```
+```yarn queue-dev ```
 
 # Run in production
 
